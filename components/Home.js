@@ -3,7 +3,11 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import LoginScreen from "./login";
+import LoginScreen from "./Login";
+import SignUpScreen from "./SignUp";
+import JourneyPlannerScreen from "./JourneyPlanner.js";
+import DashBoardScreen from "./DashBoard";
+
 class HomeScreen extends React.Component {
   render() {
     return (
@@ -15,24 +19,30 @@ class HomeScreen extends React.Component {
             this.props.navigation.navigate("Login");
           }}
         />
+        <Button
+          title="Sign up"
+          onPress={() => {
+            this.props.navigation.navigate("SignUp");
+          }}
+        />
+        <Button
+          title="Skip"
+          onPress={() => {
+            this.props.navigation.navigate("JourneyPlanner");
+          }}
+        />
       </View>
     );
   }
 }
-// class LoginScreen extends React.Component {
-//   render() {
-//     return (
-//       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//         <Text>Login Screen</Text>
-//       </View>
-//     );
-//   }
-// }
 
 const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
-    Login: LoginScreen
+    Login: LoginScreen,
+    SignUp: SignUpScreen,
+    JourneyPlanner: JourneyPlannerScreen,
+    DashBoard: DashBoardScreen
   },
   {
     initialRootName: "Home"
