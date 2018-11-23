@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
+import DashBoardScreen from "./DashBoard";
 
 export default class SignUpScreen extends React.Component {
   render() {
@@ -17,12 +18,3 @@ export default class SignUpScreen extends React.Component {
     );
   }
 }
-const RootStack = createStackNavigator(
-  {
-    SignUp: SignUpScreen,
-    DashBoard: DashBoardScreen
-  },
-  {
-    initialRootName: "SignUp"
-  }
-);
