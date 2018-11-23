@@ -7,6 +7,10 @@ import LoginScreen from "./Login";
 import SignUpScreen from "./SignUp";
 import JourneyPlannerScreen from "./JourneyPlanner.js";
 import DashBoardScreen from "./DashBoard";
+import PlanScreen from "./Plan";
+import ProfileScreen from "./Profile";
+import HistoryScreen from "./History";
+import SuggestionsScreen from"./Suggestions"
 
 class HomeScreen extends React.Component {
   render() {
@@ -42,7 +46,11 @@ const RootStack = createStackNavigator(
     Login: LoginScreen,
     SignUp: SignUpScreen,
     JourneyPlanner: JourneyPlannerScreen,
-    DashBoard: DashBoardScreen
+    DashBoard: DashBoardScreen,
+    Plan: PlanScreen,
+    Profile:ProfileScreen,
+    History:HistoryScreen,
+    Suggestions: SuggestionsScreen
   },
   {
     initialRootName: "Home"
