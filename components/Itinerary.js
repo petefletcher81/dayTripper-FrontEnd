@@ -1,16 +1,14 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 
-export default class PlanScreen extends React.Component {
+export default class ItineraryScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>PlanScreen</Text>
+        <Text>Itinerary Screen</Text>
         <Button
-          title="Itinerary"
-          onPress={() => {
-            this.props.navigation.navigate("Itinerary");
-          }}
+          title="Map"
+          onPress={() => this.props.navigation.navigate("Map")}
         />
       </View>
     );
