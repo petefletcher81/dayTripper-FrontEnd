@@ -8,7 +8,7 @@ export default class LoginScreen extends React.Component {
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text>Login Screen</Text>
         <Button
-          title="send to dashboard"
+          title="send to dashboard screen"
           onPress={() => {
             this.props.navigation.navigate("DashBoard");
           }}
