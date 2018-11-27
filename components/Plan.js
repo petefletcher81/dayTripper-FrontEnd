@@ -5,20 +5,25 @@ import DateTimePickerTester from "./DatePicker";
 
 export default class PlanScreen extends React.Component {
   state = {
-    location: "",
-    date: "",
-    markedDay: {}
+    location: ""
   };
   render() {
     return (
       <View style={styles.view}>
         <Text>Welcome User!</Text>
-        <TextInput style={styles.textInput} placeholder="Location city" />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Location city"
+          onChangeText={location => this.setState({ location })}
+        />
         <DateTimePickerTester />
+        <Text>{this.props.date}</Text>
         <Button
           title="Map my day!"
           onPress={() => {
-            this.props.navigation.navigate("Itinerary");
+            this.props.navigation.navigate("Itinerary", {
+              location: `${this.state.location}`
+            });
           }}
         />
       </View>
