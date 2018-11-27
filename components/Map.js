@@ -44,10 +44,6 @@ export default class MapScreen extends React.Component {
         longitude: location.coords.longitude,
         isLoading: false
       });
-      this.getDirections(
-        `${this.state.latitude},${this.state.longitude}`,
-        "Manchester art gallery"
-      );
     }
   };
 
@@ -101,6 +97,15 @@ export default class MapScreen extends React.Component {
           coordinates={this.state.coords}
           stroke={2}
           strokeColor="red"
+        />
+        <Button
+          title="Generate Directions"
+          onPress={() => {
+            this.getDirections(
+              `${this.state.latitude},${this.state.longitude}`,
+              "Manchester art gallery"
+            );
+          }}
         />
       </MapView>
     );
