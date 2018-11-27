@@ -50,7 +50,9 @@ export default class MapScreen extends React.Component {
   async getDirections(startLoc, destinationLoc) {
     return (
       fetch(
-        `https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}&mode=walking&key=AIzaSyDwFHQ6Rv6UX_wX1VDrSlGu95tzghV-Cl4`
+        `https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}&mode=walking&key=${
+          GOOGLEAPI.GOOGLEDIR
+        }`
       )
         .then(response => response.json())
         //decodes the response
