@@ -32,6 +32,12 @@ class HomeScreen extends React.Component {
           }}
         />
         <Button
+          title="Itinerary"
+          onPress={() => {
+            this.props.navigation.navigate("Itinerary");
+          }}
+        />
+        <Button
           title="Skip"
           onPress={() => {
             this.props.navigation.navigate("Map");

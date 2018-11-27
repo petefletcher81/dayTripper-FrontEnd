@@ -1,14 +1,21 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, ListItem, FlatList } from "react-native";
 
 export default class ItineraryScreen extends React.Component {
+  state = {
+    placeName: ["Manchester Art Gallery"]
+  };
+
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Itinerary Screen</Text>
+      <View>
         <Button
-          title="Map"
-          onPress={() => this.props.navigation.navigate("Map")}
+          onPress={() => {
+            this.props.navigation.navigate("Map", {
+              placename: `${this.state.placeName[0]}`
+            });
+          }}
+          title="Place"
         />
       </View>
     );

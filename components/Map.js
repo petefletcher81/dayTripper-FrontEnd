@@ -91,6 +91,7 @@ export default class MapScreen extends React.Component {
       );
     }
 
+    console.log(this.props.navigation.state.params.placename);
     return (
       <MapView style={{ flex: 1 }} initialRegion={initialLocation}>
         <MapView.Polyline
@@ -103,7 +104,7 @@ export default class MapScreen extends React.Component {
           onPress={() => {
             this.getDirections(
               `${this.state.latitude},${this.state.longitude}`,
-              "Manchester art gallery"
+              `${this.props.navigation.state.params.placename}`
             );
           }}
         />
