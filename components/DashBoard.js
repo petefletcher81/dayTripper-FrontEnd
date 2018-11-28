@@ -29,3 +29,5 @@ export default class DashBoardScreen extends React.Component {
     );
   }
 }
+
+}
