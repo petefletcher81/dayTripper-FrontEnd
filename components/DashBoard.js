@@ -16,18 +16,25 @@ export default class DashBoardScreen extends React.Component {
             this.props.navigation.navigate("Plan");
           }}
         />
-        <Button title="profile"
-        onPress={()=>{
-          this.props.navigation.navigate("Profile")}}/>
-        <Button title="history"
-        onPress={()=>{
-          this.props.navigation.navigate("History")}}/>
-        <Button  title="suggestions"
-        onPress={()=>{
-          this.props.navigation.navigate("Suggestions")}}/>
+        <Button
+          title="profile"
+          onPress={() => {
+            this.props.navigation.navigate("Profile");
+          }}
+        />
+        <Button
+          title="history"
+          onPress={() => {
+            this.props.navigation.navigate("History");
+          }}
+        />
+        <Button
+          title="suggestions"
+          onPress={() => {
+            this.props.navigation.navigate("Suggestions");
+          }}
+        />
       </View>
     );
   }
-}
-
 }

@@ -1,48 +1,39 @@
-import React from "react";
-import { View, Text, Button, TextInput, StyleSheet } from "react-native";
-import { DateTimePicker } from "react-native-modal-datetime-picker";
-import DateTimePickerTester from "./DatePicker";
-
-export default class PlanScreen extends React.Component {
+import React, { Component } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import DateTimePicker from "react-native-modal-datetime-picker";
+export default class DateTimePickerTester extends Component {
   state = {
-    location: ""
+    isDateTimePickerVisible: false,
+    date: null
+  };
+  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+  _hideDateTimePicker = date => {
+    // console.log(date);
+    this.setState({
+      isDateTimePickerVisible: false,
+      date: date
+    });
+  };
+  _handleDatePicked = date => {
+    // console.log("A date has been picked: ", date);
+    this._hideDateTimePicker(date);
   };
   render() {
+    console.log(this.state);
     return (
-      <View style={styles.view}>
-        <Text>Welcome User!</Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Location city"
-          onChangeText={location => this.setState({ location })}
-        />
-        <DateTimePickerTester />
-        <Text>{this.props.date}</Text>
-        <Button
-          title="Map my day!"
-          onPress={() => {
-            this.props.navigation.navigate("Itinerary", {
-              location: `${this.state.location}`
-            });
-          }}
+      <View style={{ flex: 1 }}>
+        <TouchableOpacity onPress={this._showDateTimePicker}>
+          <Text>Show DatePicker</Text>
+          {this.state.date && (
+            <Text>{this.state.date.toString().slice(0, -23)}</Text>
+          )}
+        </TouchableOpacity>
+        <DateTimePicker
+          isVisible={this.state.isDateTimePickerVisible}
+          onConfirm={this._handleDatePicked}
+          onCancel={this._hideDateTimePicker}
         />
       </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "space-evenly"
-  },
-  textInput: {
-    backgroundColor: "#87cefa",
-    color: "black",
-    width: "50%",
-    height: 40
-  },
-  date: {
-    color: "blue"
-  }
-});
