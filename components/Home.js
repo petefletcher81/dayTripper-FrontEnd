@@ -7,6 +7,12 @@ import LoginScreen from "./Login";
 import SignUpScreen from "./SignUp";
 import JourneyPlannerScreen from "./JourneyPlanner.js";
 import DashBoardScreen from "./DashBoard";
+import PlanScreen from "./Plan";
+import ProfileScreen from "./Profile";
+import HistoryScreen from "./History";
+import SuggestionsScreen from "./Suggestions";
+import ItineraryScreen from "./Itinerary";
+import MapScreen from "./Map.js";
 
 class HomeScreen extends React.Component {
   render() {
@@ -26,9 +32,15 @@ class HomeScreen extends React.Component {
           }}
         />
         <Button
+          title="Itinerary"
+          onPress={() => {
+            this.props.navigation.navigate("Itinerary");
+          }}
+        />
+        <Button
           title="Skip"
           onPress={() => {
-            this.props.navigation.navigate("JourneyPlanner");
+            this.props.navigation.navigate("Map");
           }}
         />
       </View>
@@ -42,7 +54,13 @@ const RootStack = createStackNavigator(
     Login: LoginScreen,
     SignUp: SignUpScreen,
     JourneyPlanner: JourneyPlannerScreen,
-    DashBoard: DashBoardScreen
+    DashBoard: DashBoardScreen,
+    Plan: PlanScreen,
+    Profile: ProfileScreen,
+    History: HistoryScreen,
+    Suggestions: SuggestionsScreen,
+    Itinerary: ItineraryScreen,
+    Map: MapScreen
   },
   {
     initialRootName: "Home"
