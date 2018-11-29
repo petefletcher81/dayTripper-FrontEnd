@@ -14,7 +14,10 @@ export default class ProfileScreen extends React.Component {
     firstname: "",
     lastname: "",
     preference1: false,
-    checked: false
+    checked: false,
+    shopping: false,
+    sightseeing: false,
+    eatingOut: false
   };
 
   handleSubmit = () => {
@@ -62,7 +65,24 @@ export default class ProfileScreen extends React.Component {
           value={this.state.lastname}
           onChangeText={lastname => this.setState({ lastname })}
         />
-        <Button title="Save" onPress={this.handleSubmit} />
+        <CheckBox
+          title="Shopping"
+          checked={this.state.shopping}
+          onPress={() => this.setState({ shopping: !this.state.shopping })}
+        />
+        <CheckBox
+          title="Sightseeing"
+          checked={this.state.sightseeing}
+          onPress={() =>
+            this.setState({ sightseeing: !this.state.sightseeing })
+          }
+        />
+        <CheckBox
+          title="Eating Out"
+          checked={this.state.eatingOut}
+          onPress={() => this.setState({ eatingOut: !this.state.eatingOut })}
+        />
+        <Button center title="Save" onPress={this.handleSubmit} />
       </View>
     );
   }

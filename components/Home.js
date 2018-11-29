@@ -40,7 +40,7 @@ class HomeScreen extends React.Component {
         <Button
           title="Skip"
           onPress={() => {
-            this.props.navigation.navigate("Map");
+            this.props.navigation.navigate("Suggestions");
           }}
         />
       </View>

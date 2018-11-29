@@ -17,9 +17,17 @@ export default class MapScreen extends React.Component {
     latitude: null,
     longitude: null,
     error: null,
-    coords: [],
+    coordsArray: [],
     isLoading: true
   };
+
+  componentDidMount() {
+    this.getDirections(
+      "53.457831502, -2.288165514",
+      "53.486164722, -2.239665708"
+    );
+    this.getDirections("53.474831434, -2.235499058", "53.4852, -2.2391");
+  }
 
   componentWillMount() {
     if (Platform.OS === "android" && !Constants.isDevice) {
@@ -67,10 +75,13 @@ export default class MapScreen extends React.Component {
               longitude: point[1]
             };
           });
+
+          const newCoordsArray = [...this.state.coordsArray, coords];
           this.setState({
-            coords: coords
+            coordsArray: newCoordsArray
           });
-          return coords;
+
+          return newCoordsArray;
         })
         .catch(error => {
           console.error(error);
@@ -98,22 +109,26 @@ export default class MapScreen extends React.Component {
     const destination = this.props.navigation.state.params.placename;
     // const destLoc = destination.toLowerCase();
     // console.log(destLoc);
+    // console.log(this.state.coordsArray[0]);
+    console.log(typeof `${this.state.latitude}, ${this.state.longitude}`);
     return (
       <MapView style={{ flex: 1 }} initialRegion={initialLocation}>
-        <MapView.Polyline
-          coordinates={this.state.coords}
-          stroke={2}
-          strokeColor="red"
-        />
-        <Button
+        {this.state.coordsArray.map(coords => {
+          return (
+            <MapView.Polyline
+              coordinates={coords}
+              stroke={2}
+              strokeColor="red"
+            />
+          );
+        })}
+
+        {/* <Button
           title="Generate Directions"
           onPress={() => {
-            this.getDirections(
-              `${this.state.latitude},${this.state.longitude}`,
-              `${destination}`
-            );
+            
           }}
-        />
+        /> */}
       </MapView>
     );
   }
