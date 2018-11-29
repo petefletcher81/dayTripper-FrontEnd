@@ -5,7 +5,7 @@ export default class ItineraryScreen extends React.Component {
   state = {
     placeName: [
       "Manchester Art Gallery",
-      "Museum of Science and Industry",
+      "Manchester Central Library",
       "People's History Museum"
     ]
   };
@@ -15,11 +15,11 @@ export default class ItineraryScreen extends React.Component {
       return (
         <View>
           <Button
-            key={`${index}`}
+            key={index}
             onPress={() => {
               this.props.navigation.navigate("Map", {
-                placename:
-                  `${this.props.navigation.state.params.location} ` + `${place}`
+                placeArray: this.state.placeName,
+                placename: `${this.props.navigation.state.params.location}`
               });
             }}
             title={place}

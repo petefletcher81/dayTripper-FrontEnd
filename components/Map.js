@@ -21,14 +21,6 @@ export default class MapScreen extends React.Component {
     isLoading: true
   };
 
-  componentDidMount() {
-    this.getDirections(
-      "53.457831502, -2.288165514",
-      "53.486164722, -2.239665708"
-    );
-    this.getDirections("53.474831434, -2.235499058", "53.4852, -2.2391");
-  }
-
   componentWillMount() {
     if (Platform.OS === "android" && !Constants.isDevice) {
       this.setState({
@@ -54,6 +46,28 @@ export default class MapScreen extends React.Component {
         isLoading: false
       });
     }
+  };
+
+  mappingLocations = () => {
+    console.log("been clicked");
+
+    const destinationArray = this.props.navigation.state.params.placeArray;
+    const destLocation = this.props.navigation.state.params;
+    console.log(this.props.navigation.state.params.placename);
+
+    Promise.all(
+      destinationArray.map(destination => {
+        
+        return this.getDirections(
+          `${this.state.latitude}, ${this.state.longitude}`,
+          `${destLocation} ${destination}`
+        );
+      })
+    )
+      .then(res => console.log(">>>>>>", res, "<<<<<<<<<<"))
+      .catch(error => console.log(error));
+
+    // this.getDirections("53.474831434, -2.235499058", "53.4857, -2.2395");
   };
 
   async getDirections(startLoc, destinationLoc) {
@@ -105,17 +119,12 @@ export default class MapScreen extends React.Component {
       );
     }
 
-    // console.log(this.props.navigation.state.params.placename);
-    const destination = this.props.navigation.state.params.placename;
-    // const destLoc = destination.toLowerCase();
-    // console.log(destLoc);
-    // console.log(this.state.coordsArray[0]);
-    console.log(typeof `${this.state.latitude}, ${this.state.longitude}`);
     return (
       <MapView style={{ flex: 1 }} initialRegion={initialLocation}>
-        {this.state.coordsArray.map(coords => {
+        {this.state.coordsArray.map((coords, index) => {
           return (
             <MapView.Polyline
+              key={index}
               coordinates={coords}
               stroke={2}
               strokeColor="red"
@@ -123,12 +132,12 @@ export default class MapScreen extends React.Component {
           );
         })}
 
-        {/* <Button
+        <Button
           title="Generate Directions"
           onPress={() => {
-            
+            this.mappingLocations();
           }}
-        /> */}
+        />
       </MapView>
     );
   }
