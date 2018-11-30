@@ -26,9 +26,14 @@ class HomeScreen extends React.Component {
   };
   render() {
     return (
+
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Nav openDrawer={this.props.navigation.openDrawer} />
         {/* <Button
+
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text>DayTripper</Text>
+        <Button
           title="Login"
           onPress={() => {
             this.props.navigation.navigate('Login');

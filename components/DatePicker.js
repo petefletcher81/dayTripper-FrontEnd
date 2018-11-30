@@ -19,7 +19,6 @@ export default class DateTimePickerTester extends Component {
     this._hideDateTimePicker(date);
   };
   render() {
-    console.log(this.state);
     return (
       <View style={{ flex: 1 }}>
         <TouchableOpacity onPress={this._showDateTimePicker}>
