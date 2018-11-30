@@ -1,17 +1,20 @@
 import React from "react";
 import { View, Text, Button, TextInput, StyleSheet } from "react-native";
-import { DateTimePicker } from "react-native-modal-datetime-picker";
 import DateTimePickerTester from "./DatePicker";
+import * as api from "../api";
 
 export default class PlanScreen extends React.Component {
   state = {
-    location: ""
+    location: "Manchester",
+    username: "williamwalkers",
+    attractions: []
   };
   render() {
     return (
       <View style={styles.view}>
         <Text>Welcome User!</Text>
         <TextInput
+          value={this.state.location}
           style={styles.textInput}
           placeholder="Location city"
           onChangeText={location => this.setState({ location })}
@@ -21,9 +24,15 @@ export default class PlanScreen extends React.Component {
         <Button
           title="Map my day!"
           onPress={() => {
-            this.props.navigation.navigate("Itinerary", {
-              location: `${this.state.location}`
-            });
+            api
+              .getAttractions(this.state.username, this.state.location)
+              .then(attractions => this.setState({ attractions: attractions }))
+              .then(res => {
+                this.props.navigation.navigate("Itinerary", {
+                  location: `${this.state.location}`,
+                  attractions: this.state.attractions
+                });
+              });
           }}
         />
       </View>
