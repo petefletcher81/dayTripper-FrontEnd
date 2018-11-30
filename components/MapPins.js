@@ -1,11 +1,19 @@
 import React from "react";
 import { MapView } from "expo";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Button
+} from "react-native";
 // import Callout from "react-native-maps";
+import * as api from "../api";
 
 export default function MapPins(props) {
   return props.attractions.map(attraction => {
-    console.log(attraction.name);
+    // console.log(props.attractions.);
     return (
       <MapView.Marker
         key={attraction.name}
@@ -22,7 +30,13 @@ export default function MapPins(props) {
                 style={Styles.placeImage}
                 source={{ uri: attraction.images[0].image }}
               />
-
+              <Button
+                title={"take me there"}
+                onPress={() => {
+                  console.log("hello");
+                  // props.getDirections(props.initialLocation, coordinate);
+                }}
+              />
               <Text>{attraction.intro}</Text>
             </ScrollView>
           </View>
