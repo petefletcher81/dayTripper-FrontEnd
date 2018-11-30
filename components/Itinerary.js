@@ -10,8 +10,6 @@ export default class ItineraryScreen extends React.Component {
   };
 
   render() {
-    // console.log(this.state.randomAttractions);
-    // const x = this.state.attractions;
     return (
       <View>
         <Card>
@@ -30,7 +28,7 @@ export default class ItineraryScreen extends React.Component {
         <Button title="Randomize" />
         <Button
           title="Map locations"
-          onPress={this.props.navigation.navigate("Map", {
+          onPress={() => this.props.navigation.navigate("Map", {
             randomAttractions: this.state.randomAttractions
           })}
         />
