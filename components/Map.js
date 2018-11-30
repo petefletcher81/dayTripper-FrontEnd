@@ -49,6 +49,28 @@ export default class MapScreen extends React.Component {
     }
   };
 
+  mappingLocations = () => {
+    console.log("been clicked");
+
+    const destinationArray = this.props.navigation.state.params.placeArray;
+    const destLocation = this.props.navigation.state.params;
+    console.log(this.props.navigation.state.params.placename);
+
+    Promise.all(
+      destinationArray.map(destination => {
+        
+        return this.getDirections(
+          `${this.state.latitude}, ${this.state.longitude}`,
+          `${destLocation} ${destination}`
+        );
+      })
+    )
+      .then(res => console.log(">>>>>>", res, "<<<<<<<<<<"))
+      .catch(error => console.log(error));
+
+    // this.getDirections("53.474831434, -2.235499058", "53.4857, -2.2395");
+  };
+
   async getDirections(startLoc, destinationLoc) {
     return (
       fetch(
@@ -97,12 +119,12 @@ export default class MapScreen extends React.Component {
         </View>
       );
     }
+
     return (
       <MapView style={{ flex: 1 }} initialRegion={initialLocation}>
         <MapPins
           attractions={this.props.navigation.state.params.randomAttractions}
         />
-
         {this.state.coordsArray.map((coords, index) => {
           return (
             <MapView.Polyline

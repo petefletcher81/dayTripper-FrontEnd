@@ -5,6 +5,7 @@ import { Card } from "react-native-elements";
 
 export default class ItineraryScreen extends React.Component {
   state = {
+
     attractions: [],
     randomAttractions: []
   };
@@ -34,6 +35,7 @@ export default class ItineraryScreen extends React.Component {
         />
       </View>
     );
+
   }
   componentDidMount = () => {
     console.log("log 1");
