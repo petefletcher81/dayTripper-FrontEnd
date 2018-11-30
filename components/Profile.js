@@ -1,91 +1,53 @@
-import React from "react";
-import { View, Text, Button, Picker } from "react-native";
+import React from 'react';
+import { View, Text, Button, Picker } from 'react-native';
 // import DashBoard from './DashBoard'
 import {
   FormLabel,
   FormInput,
   FormValidationMessage,
-  CheckBox
-} from "react-native-elements";
+  CheckBox,
+} from 'react-native-elements';
+import * as api from '../api';
+import Nav from './Nav';
 
 export default class ProfileScreen extends React.Component {
   state = {
-    username: "",
-    firstname: "",
-    lastname: "",
-    preference1: false,
-    checked: false,
-    shopping: false,
-    sightseeing: false,
-    eatingOut: false
+    preferences: {},
   };
 
-  handleSubmit = () => {
-    onChangeText = "";
-    fetch(
-      "https://xprfmsf0pb.execute-api.eu-west-1.amazonaws.com/dev/createUser",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: this.state.username,
-          firstname: this.state.firstname,
-          lastname: this.state.lastname
-        })
-      }
-    ).then(res => {
-      console.log(res);
-      this.setState({
-        username: "",
-        firstname: "",
-        lastname: ""
-      });
-    });
-  };
+  handleSubmit = () => {};
 
   render() {
-    console.log(this.state.firstname);
+    console.log(this.state.preferences);
+    const {
+      cruises,
+      eatingout,
+      musicandshows,
+      shopping,
+      exploringnature,
+      sightseeing,
+    } = this.state.preferences;
+    const preferences = this.state.preferences;
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <FormLabel>username</FormLabel>
-        <FormInput
-          value={this.state.username}
-          onChangeText={username => this.setState({ username })}
-        />
-        <FormLabel>Firstname</FormLabel>
-        <FormInput
-          value={this.state.firstname}
-          onChangeText={firstname => this.setState({ firstname })}
-        />
-        <FormLabel>Surname</FormLabel>
-        <FormInput
-          value={this.state.lastname}
-          onChangeText={lastname => this.setState({ lastname })}
-        />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Nav openDrawer={this.props.navigation.openDrawer} />
         <CheckBox
-          title="Shopping"
-          checked={this.state.shopping}
-          onPress={() => this.setState({ shopping: !this.state.shopping })}
-        />
-        <CheckBox
-          title="Sightseeing"
-          checked={this.state.sightseeing}
+          title="shopping"
+          checked={shopping}
           onPress={() =>
-            this.setState({ sightseeing: !this.state.sightseeing })
+            this.setState({
+              preferences: { ...preferences, shopping: !shopping },
+            })
           }
         />
-        <CheckBox
-          title="Eating Out"
-          checked={this.state.eatingOut}
-          onPress={() => this.setState({ eatingOut: !this.state.eatingOut })}
-        />
-        <Button center title="Save" onPress={this.handleSubmit} />
+        <Button center title="Save Preferences" onPress={this.handleSubmit} />
       </View>
     );
   }
 
-  componentDidMount = () => {};
+  componentDidMount = () => {
+    const userPreferences = this.props.navigation.state.params.userDetails
+      .preferences;
+    this.setState({ preferences: userPreferences });
+  };
 }

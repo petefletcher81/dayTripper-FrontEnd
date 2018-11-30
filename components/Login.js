@@ -1,27 +1,27 @@
-import React from "react";
-import { View, Text, Button, TextInput } from "react-native";
+import React from 'react';
+import { View, Text, Button, TextInput } from 'react-native';
 import {
   FormLabel,
   FormInput,
   FormValidationMessage,
-  Icon
-} from "react-native-elements";
-import DashBoard from "./DashBoard";
-import * as api from "../api";
+  Icon,
+} from 'react-native-elements';
+import DashBoard from './DashBoard';
+import * as api from '../api';
 
 export default class LoginScreen extends React.Component {
   state = {
-    username: "williamwalkers",
-    password: ""
+    username: '',
+    password: '',
   };
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <FormLabel>Username</FormLabel>
         <FormInput
           onChangeText={text =>
             this.setState({
-              username: text
+              username: text,
             })
           }
           value={this.state.username}
@@ -30,7 +30,7 @@ export default class LoginScreen extends React.Component {
         <FormInput
           onChangeText={text =>
             this.setState({
-              password: text
+              password: text,
             })
           }
           value={this.state.password}
@@ -43,11 +43,17 @@ export default class LoginScreen extends React.Component {
           onPress={() => {
             api.getUserProfile(this.state.username).then(res =>
               Object.keys(res).length === 0
-                ? this.setState({ username: "", password: "" })
-                : this.props.navigation.navigate("DashBoard", {
-                    userDetails: res
-                  })
+                ? this.setState({ username: '', password: '' })
+                : this.props.navigation.navigate('DashBoard', {
+                    userDetails: res,
+                  }),
             );
+          }}
+        />
+        <Button
+          title="don't have an account? sign up"
+          onPress={() => {
+            this.props.navigation.navigate('SignUp');
           }}
         />
       </View>
