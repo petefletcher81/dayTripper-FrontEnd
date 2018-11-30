@@ -1,12 +1,16 @@
-const DB_URL = "https://xprfmsf0pb.execute-api.eu-west-1.amazonaws.com/dev";
+const DB_URL = 'https://xprfmsf0pb.execute-api.eu-west-1.amazonaws.com/dev';
 
 export const createUserProfile = username => {
+  console.log(username);
   return fetch(`${DB_URL}/createUser`, {
     method: `POST`,
-    body: JSON.stringify({ username: username })
+    headers: {
+      Accept: `application/json`,
+      'Content-Type': `application/json`,
+    },
+    body: JSON.stringify({ username: username }),
   })
-    .then(data => data.json())
-    .then(data => JSON.parse(data))
+    .then(data => data)
     .catch(error => console.log(error));
 };
 
@@ -20,7 +24,7 @@ export const getUserProfile = username => {
 export const updateUserPreferences = (username, preferences) => {
   return fetch(`${DB_URL}/updateUserProfile`, {
     method: `UPDATE`,
-    body: JSON.stringify({ username: username, preferences: preferences })
+    body: JSON.stringify({ username: username, preferences: preferences }),
   })
     .then(data => data.json())
     .then(data => JSON.parse(data))

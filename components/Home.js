@@ -26,13 +26,8 @@ class HomeScreen extends React.Component {
   };
   render() {
     return (
-
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Nav openDrawer={this.props.navigation.openDrawer} />
-        {/* <Button
-
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>DayTripper</Text>
+        {/* <Nav openDrawer={this.props.navigation.openDrawer} /> */}
         <Button
           title="Login"
           onPress={() => {
@@ -45,26 +40,10 @@ class HomeScreen extends React.Component {
             this.props.navigation.navigate('SignUp');
           }}
         />
-        <Button
-          title="Itinerary"
-          onPress={() => {
-            this.props.navigation.navigate('Itinerary');
-          }}
-        />
-        <Button
-          title="Skip"
-          onPress={() => {
-            this.props.navigation.navigate('Suggestions');
-          }}
-        /> */}
       </View>
     );
   }
 }
-
-// const MyDrawerNavigator = createDrawerNavigator({
-//   Home: { screen: HomeScreen },
-// });
 
 const RootStack = createDrawerNavigator(
   {
