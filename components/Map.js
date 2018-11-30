@@ -17,7 +17,7 @@ export default class MapScreen extends React.Component {
     latitude: null,
     longitude: null,
     error: null,
-    coords: [],
+    coordsArray: [],
     isLoading: true
   };
 
@@ -48,6 +48,33 @@ export default class MapScreen extends React.Component {
     }
   };
 
+  mappingLocations = () => {
+    console.log("been clicked");
+
+    console.log(this.props.navigation.state.params.attractions[0]);
+
+    const destinationArray = this.props.navigation.state.params.attractions.slice(
+      0,
+      5
+    );
+    // const destLocation = this.props.navigation.state.params.placename;
+    // console.log(this.props.navigation.state.params);
+
+    // Promise.all(
+    //   destinationArray.map(destination => {
+    //     console.log(destination.coordinates);
+    //     return this.getDirections(
+    //       `${this.state.latitude}, ${this.state.longitude}`,
+    //       `${destination}`
+    //     );
+    //   })
+    // )
+    //   .then(res => res)
+    //   .catch(error => console.log(error));
+
+    this.getDirections("53.474831434, -2.235499058", "53.4857, -2.2395");
+  };
+
   async getDirections(startLoc, destinationLoc) {
     return (
       fetch(
@@ -67,10 +94,13 @@ export default class MapScreen extends React.Component {
               longitude: point[1]
             };
           });
+
+          const newCoordsArray = [...this.state.coordsArray, coords];
           this.setState({
-            coords: coords
+            coordsArray: newCoordsArray
           });
-          return coords;
+
+          return newCoordsArray;
         })
         .catch(error => {
           console.error(error);
@@ -94,24 +124,23 @@ export default class MapScreen extends React.Component {
       );
     }
 
-    // console.log(this.props.navigation.state.params.placename);
-    const destination = this.props.navigation.state.params.placename;
-    // const destLoc = destination.toLowerCase();
-    // console.log(destLoc);
     return (
       <MapView style={{ flex: 1 }} initialRegion={initialLocation}>
-        <MapView.Polyline
-          coordinates={this.state.coords}
-          stroke={2}
-          strokeColor="red"
-        />
+        {this.state.coordsArray.map((coords, index) => {
+          return (
+            <MapView.Polyline
+              key={index}
+              coordinates={coords}
+              stroke={2}
+              strokeColor="red"
+            />
+          );
+        })}
+
         <Button
           title="Generate Directions"
           onPress={() => {
-            this.getDirections(
-              `${this.state.latitude},${this.state.longitude}`,
-              `${destination}`
-            );
+            this.mappingLocations();
           }}
         />
       </MapView>
