@@ -9,7 +9,7 @@ import * as api from '../api';
 
 export default class SignUpScreen extends React.Component {
   state = {
-    username: '',
+    username: `${Date.now()}`,
   };
   render() {
     return (
@@ -24,11 +24,15 @@ export default class SignUpScreen extends React.Component {
           onPress={() => {
             api
               .createUserProfile(this.state.username)
-              .then(res => {
-                this.props.navigation.navigate('DashBoard');
+              .then(() => {
+                api.getUserProfile(this.state.username).then(user => {
+                  this.props.navigation.navigate('Profile', {
+                    userDetails: user
+                  });
+                });
               })
               .catch(err => {
-                this.setState({username: ''})
+                this.setState({ username: '' });
               });
           }}
         />
