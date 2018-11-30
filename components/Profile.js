@@ -1,21 +1,27 @@
-import React from 'react';
-import { View, Text, Button, Picker } from 'react-native';
+import React from "react";
+import { View, Text, Button, Picker } from "react-native";
 // import DashBoard from './DashBoard'
 import {
   FormLabel,
   FormInput,
   FormValidationMessage,
-  CheckBox,
-} from 'react-native-elements';
-import * as api from '../api';
-import Nav from './Nav';
+  CheckBox
+} from "react-native-elements";
+import * as api from "../api";
+import Nav from "./Nav";
 
 export default class ProfileScreen extends React.Component {
   state = {
-    preferences: {},
+    preferences: {}
   };
 
-  handleSubmit = () => {};
+  handleSubmit = () => {
+    const username = this.props.navigation.state.params.userDetails.username;
+    api
+      .updateUserPreferences(username, this.state.preferences)
+      .then()
+      .catch(err => console.log(err));
+  };
 
   render() {
     console.log(this.state.preferences);
@@ -25,18 +31,55 @@ export default class ProfileScreen extends React.Component {
       musicandshows,
       shopping,
       exploringnature,
-      sightseeing,
+      sightseeing
     } = this.state.preferences;
+
     const preferences = this.state.preferences;
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Nav openDrawer={this.props.navigation.openDrawer} />
         <CheckBox
           title="shopping"
           checked={shopping}
           onPress={() =>
             this.setState({
-              preferences: { ...preferences, shopping: !shopping },
+              preferences: { ...preferences, shopping: !shopping }
+            })
+          }
+        />
+        <CheckBox
+          title="eating out"
+          checked={eatingout}
+          onPress={() =>
+            this.setState({
+              preferences: { ...preferences, eatingout: !eatingout }
+            })
+          }
+        />
+        <CheckBox
+          title="music and shows"
+          checked={musicandshows}
+          onPress={() =>
+            this.setState({
+              preferences: { ...preferences, musicandshows: !musicandshows }
+            })
+          }
+        />
+        <CheckBox
+          title="Nature"
+          checked={exploringnature}
+          onPress={() =>
+            this.setState({
+              preferences: { ...preferences, exploringnature: !exploringnature }
+            })
+          }
+        />
+        <CheckBox
+          title="Cruises"
+          checked={cruises}
+          onPress={() =>
+            this.setState({
+              preferences: { ...preferences, cruises: !cruises }
             })
           }
         />
