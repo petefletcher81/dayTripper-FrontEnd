@@ -8,7 +8,6 @@ import {
   createAppContainer,
   DrawerActions,
 } from 'react-navigation';
-import { Icon, Header, Image } from 'react-native-elements';
 import LoginScreen from './Login';
 import SignUpScreen from './SignUp';
 import JourneyPlannerScreen from './JourneyPlanner.js';
@@ -19,6 +18,7 @@ import HistoryScreen from './History';
 import SuggestionsScreen from './Suggestions';
 import ItineraryScreen from './Itinerary';
 import MapScreen from './Map.js';
+import Nav from './Nav.js';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -27,15 +27,8 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        {/* <Nav /> */}
-        <Text>Home Screen</Text>
-        <Button
-          title="openMenu"
-          onPress={() => this.props.navigation.openDrawer()}
-        >
-          Open Menu
-        </Button>
-        <Button
+        <Nav openDrawer={this.props.navigation.openDrawer} />
+        {/* <Button
           title="Login"
           onPress={() => {
             this.props.navigation.navigate('Login');
@@ -58,7 +51,7 @@ class HomeScreen extends React.Component {
           onPress={() => {
             this.props.navigation.navigate('Suggestions');
           }}
-        />
+        /> */}
       </View>
     );
   }
@@ -139,12 +132,12 @@ const RootStack = createDrawerNavigator(
   },
   {
     initialRootName: 'Home',
+    contentOptions: {
+      itemStyle: { flexDirection: 'row-reverse' },
+    },
+    drawerPosition: 'right',
+    drawerWidth: 200,
   },
 );
-// const AppNavigator = createStackNavigator({
-//   Home: {
-//     screen: HomeScreen
-//   }
-// });
 
 export default createAppContainer(RootStack);
