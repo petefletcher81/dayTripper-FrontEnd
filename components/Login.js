@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, TextInput } from "react-native";
+import {FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
 import DashBoard from "./DashBoard";
 
 export default class LoginScreen extends React.Component {
@@ -7,6 +8,8 @@ export default class LoginScreen extends React.Component {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text>Login Screen</Text>
+        <FormLabel>Login</FormLabel>
+        {/* <FormInput onChangeText=()></FormInput> */}
         <Button
           title="send to dashboard screen"
           onPress={() => {

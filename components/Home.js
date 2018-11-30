@@ -18,7 +18,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Home Screen</Text>
+        <Text>DayTripper</Text>
         <Button
           title="Login"
           onPress={() => {
@@ -29,18 +29,6 @@ class HomeScreen extends React.Component {
           title="Sign up"
           onPress={() => {
             this.props.navigation.navigate("SignUp");
-          }}
-        />
-        <Button
-          title="Itinerary"
-          onPress={() => {
-            this.props.navigation.navigate("Itinerary");
-          }}
-        />
-        <Button
-          title="Skip"
-          onPress={() => {
-            this.props.navigation.navigate("Suggestions");
           }}
         />
       </View>
