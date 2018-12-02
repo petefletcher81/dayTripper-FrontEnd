@@ -34,7 +34,3 @@ export default class Nav extends React.Component {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-//   view: { backgroundColor: '#87cefa' },
-// });
