@@ -1,3 +1,6 @@
+import GOOGLEAPI from "./config.js";
+import Polyline from "@mapbox/polyline";
+
 const DB_URL = "https://xprfmsf0pb.execute-api.eu-west-1.amazonaws.com/dev";
 
 export const createUserProfile = username => {
@@ -69,3 +72,30 @@ export const deleteUser = username => {};
 //       })
 //   );
 // };
+
+export const getDirections = (startLoc, destinationLoc) => {
+  const startPoint = `${startLoc.latitude},${startLoc.longitude}`;
+  const endPoint = `${destinationLoc.latitude},${destinationLoc.longitude}`;
+  return (
+    fetch(
+      `https://maps.googleapis.com/maps/api/directions/json?origin=${startPoint}&destination=${endPoint}&mode=walking&key=${
+        GOOGLEAPI.GOOGLEDIR
+      }`
+    )
+      .then(response => response.json())
+      //decodes the response
+      .then(responseJson => {
+        let points = Polyline.decode(
+          responseJson.routes[0].overview_polyline.points
+        );
+        let coords = points.map(point => ({
+          latitude: point[0],
+          longitude: point[1]
+        }));
+        return coords;
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  );
+};

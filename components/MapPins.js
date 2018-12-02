@@ -11,9 +11,8 @@ import {
 // import Callout from "react-native-maps";
 import * as api from "../api";
 
-export default function MapPins(props) {
+const MapPins = props => {
   return props.attractions.map(attraction => {
-    // console.log(props.attractions.);
     return (
       <MapView.Marker
         key={attraction.name}
@@ -22,7 +21,21 @@ export default function MapPins(props) {
           longitude: attraction.coordinates.longitude
         }}
       >
-        <MapView.Callout style={Styles.callout}>
+        <MapView.Callout
+          style={Styles.callout}
+          onPress={() => {
+            props.getDirections(
+              {
+                latitude: props.initialLocation.latitude,
+                longitude: props.initialLocation.longitude
+              },
+              {
+                latitude: attraction.coordinates.latitude,
+                longitude: attraction.coordinates.longitude
+              }
+            );
+          }}
+        >
           <View>
             <ScrollView>
               <Text style={Styles.calloutHeader}>{attraction.name}</Text>
@@ -30,13 +43,7 @@ export default function MapPins(props) {
                 style={Styles.placeImage}
                 source={{ uri: attraction.images[0].image }}
               />
-              <Button
-                title={"take me there"}
-                onPress={() => {
-                  console.log("hello");
-                  // props.getDirections(props.initialLocation, coordinate);
-                }}
-              />
+              <Button title={"take me there"} />
               <Text>{attraction.intro}</Text>
             </ScrollView>
           </View>
@@ -44,7 +51,7 @@ export default function MapPins(props) {
       </MapView.Marker>
     );
   });
-}
+};
 
 const Styles = StyleSheet.create({
   callout: {
@@ -60,3 +67,4 @@ const Styles = StyleSheet.create({
     fontWeight: "bold"
   }
 });
+export default MapPins;
