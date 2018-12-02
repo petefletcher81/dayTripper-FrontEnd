@@ -20,9 +20,8 @@ export default class MapScreen extends React.Component {
     error: null,
     coordsArray: [],
     isLoading: true
+    // statusBarHeight: 0
   };
-
-  let;
 
   componentWillMount() {
     if (Platform.OS === "android" && !Constants.isDevice) {
@@ -33,6 +32,10 @@ export default class MapScreen extends React.Component {
     } else {
       this._getLocationAsync();
     }
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ flex: 1 }), 500);
   }
 
   _getLocationAsync = async () => {
@@ -113,7 +116,10 @@ export default class MapScreen extends React.Component {
     );
   }
 
-  cameraViewHandler = () => {};
+  cameraViewHandler = () => {
+    this.map.animateToViewingAngle(50, 2);
+    // this.map.animateCamera({ pitch: 45, altitude: 50 });
+  };
 
   render() {
     const initialLocation = {
@@ -132,13 +138,17 @@ export default class MapScreen extends React.Component {
     }
 
     return (
+      // <View style={{ paddingTop: 5 }}>
       <MapView
-        style={{ flex: 1 }}
+        style={{ flex: this.state.flex }}
         initialRegion={initialLocation}
-        showsUserLocation={true}
+        showsUserLocation
         followsUserLocation={true}
         showsCompass={true}
         onPress={this.cameraViewHandler}
+        ref={ref => (this.map = ref)}
+        maxZoomLevel={20}
+        showsMyLocationButton
       >
         <MapPins
           attractions={this.props.navigation.state.params.randomAttractions}
@@ -161,6 +171,7 @@ export default class MapScreen extends React.Component {
           }}
         />
       </MapView>
+      // </View>
     );
   }
 }
