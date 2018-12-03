@@ -13,6 +13,7 @@ import { Constants, Location, Permissions } from "expo";
 import MapPins from "./MapPins.js";
 import { getDirections } from "../api";
 
+
 export default class MapScreen extends React.Component {
   state = {
     latitude: null,
@@ -23,6 +24,7 @@ export default class MapScreen extends React.Component {
   };
 
   componentDidMount() {
+
     if (Platform.OS === "android" && !Constants.isDevice) {
       this.setState({
         error:
@@ -31,6 +33,10 @@ export default class MapScreen extends React.Component {
     } else {
       this._getLocationAsync();
     }
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ flex: 1 }), 500);
   }
 
   _getLocationAsync = async () => {
@@ -58,6 +64,12 @@ export default class MapScreen extends React.Component {
     });
   };
 
+
+  cameraViewHandler = () => {
+    this.map.animateToViewingAngle(50, 2);
+    // this.map.animateCamera({ pitch: 45, altitude: 50 });
+  };
+
   render() {
     const initialLocation = {
       latitude: this.state.latitude,
@@ -75,7 +87,18 @@ export default class MapScreen extends React.Component {
     }
 
     return (
-      <MapView style={{ flex: 1 }} initialRegion={initialLocation}>
+      // <View style={{ paddingTop: 5 }}>
+      <MapView
+        style={{ flex: this.state.flex }}
+        initialRegion={initialLocation}
+        showsUserLocation
+        followsUserLocation={true}
+        showsCompass={true}
+        onPress={this.cameraViewHandler}
+        ref={ref => (this.map = ref)}
+        maxZoomLevel={20}
+        showsMyLocationButton
+      >
         <MapPins
           initialLocation={initialLocation}
           getDirections={this.generateDirections}
@@ -92,6 +115,7 @@ export default class MapScreen extends React.Component {
           );
         })}
       </MapView>
+      // </View>
     );
   }
 }
