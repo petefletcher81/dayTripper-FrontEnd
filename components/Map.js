@@ -8,10 +8,11 @@ import {
   FlatList,
   Text
 } from "react-native";
-import Polyline from "@mapbox/polyline";
+
 import { Constants, Location, Permissions } from "expo";
-import GOOGLEAPI from "../config.js";
 import MapPins from "./MapPins.js";
+import { getDirections } from "../api";
+
 
 export default class MapScreen extends React.Component {
   state = {
@@ -20,10 +21,10 @@ export default class MapScreen extends React.Component {
     error: null,
     coordsArray: [],
     isLoading: true
-    // statusBarHeight: 0
   };
 
-  componentWillMount() {
+  componentDidMount() {
+
     if (Platform.OS === "android" && !Constants.isDevice) {
       this.setState({
         error:
@@ -54,67 +55,15 @@ export default class MapScreen extends React.Component {
     }
   };
 
-  _beginWatchingLocation = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    this.newLocation = await Location.watchPositionAsync(
-      { distanceInterval: 10 },
-      this._getLocationAsync
-    );
+  generateDirections = (start, end) => {
+    getDirections(start, end).then(coords => {
+      console.log(JSON.stringify(coords));
+      this.setState({
+        coordsArray: [...this.state.coordsArray, coords]
+      });
+    });
   };
 
-  mappingLocations = () => {
-    console.log("been clicked");
-
-    const destinationArray = this.props.navigation.state.params.placeArray;
-    const destLocation = this.props.navigation.state.params;
-    console.log(this.props.navigation.state.params.placename);
-
-    Promise.all(
-      destinationArray.map(destination => {
-        return this.getDirections(
-          `${this.state.latitude}, ${this.state.longitude}`,
-          `${destLocation} ${destination}`
-        );
-      })
-    )
-      .then(res => console.log(">>>>>>", res, "<<<<<<<<<<"))
-      .catch(error => console.log(error));
-
-    // this.getDirections("53.474831434, -2.235499058", "53.4857, -2.2395");
-  };
-
-  async getDirections(startLoc, destinationLoc) {
-    return (
-      fetch(
-        `https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}&mode=walking&key=${
-          GOOGLEAPI.GOOGLEDIR
-        }`
-      )
-        .then(response => response.json())
-        //decodes the response
-        .then(responseJson => {
-          let points = Polyline.decode(
-            responseJson.routes[0].overview_polyline.points
-          );
-          let coords = points.map((point, index) => {
-            return {
-              latitude: point[0],
-              longitude: point[1]
-            };
-          });
-
-          const newCoordsArray = [...this.state.coordsArray, coords];
-          this.setState({
-            coordsArray: newCoordsArray
-          });
-
-          return newCoordsArray;
-        })
-        .catch(error => {
-          console.error(error);
-        })
-    );
-  }
 
   cameraViewHandler = () => {
     this.map.animateToViewingAngle(50, 2);
@@ -151,6 +100,8 @@ export default class MapScreen extends React.Component {
         showsMyLocationButton
       >
         <MapPins
+          initialLocation={initialLocation}
+          getDirections={this.generateDirections}
           attractions={this.props.navigation.state.params.randomAttractions}
         />
         {this.state.coordsArray.map((coords, index) => {
@@ -163,13 +114,6 @@ export default class MapScreen extends React.Component {
             />
           );
         })}
-
-        <Button
-          title="Generate Directions"
-          onPress={() => {
-            this.mappingLocations();
-          }}
-        />
       </MapView>
       // </View>
     );
