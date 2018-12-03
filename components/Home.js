@@ -1,12 +1,13 @@
 // In App.js in a new project
 
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Image, StyleSheet } from 'react-native';
 import {
   createDrawerNavigator,
   createStackNavigator,
   createAppContainer,
   DrawerActions,
+  DrawerItems,
 } from 'react-navigation';
 import LoginScreen from './Login';
 import SignUpScreen from './SignUp';
@@ -50,7 +51,10 @@ const RootStack = createDrawerNavigator(
     Home: {
       screen: HomeScreen,
       navigationOptions: () => ({
-        title: 'Home',
+        drawerLabel: 'Home',
+        drawerIcon: () => (
+          <Image source={require('../assets/home.png')} style={[styles.icon]} />
+        ),
       }),
     },
     Login: {
@@ -81,12 +85,21 @@ const RootStack = createDrawerNavigator(
       screen: PlanScreen,
       navigationOptions: () => ({
         title: 'Plan',
+        drawerIcon: () => (
+          <Image source={require('../assets/plan.png')} style={[styles.icon]} />
+        ),
       }),
     },
     Profile: {
       screen: ProfileScreen,
       navigationOptions: () => ({
         title: 'Profile',
+        drawerIcon: () => (
+          <Image
+            source={require('../assets/profile.png')}
+            style={[styles.icon]}
+          />
+        ),
       }),
     },
     History: {
@@ -105,23 +118,45 @@ const RootStack = createDrawerNavigator(
       screen: ItineraryScreen,
       navigationOptions: () => ({
         title: 'Itinerary',
+        drawerIcon: () => (
+          <Image
+            source={require('../assets/itinerary.png')}
+            style={[styles.icon]}
+          />
+        ),
       }),
     },
     Map: {
       screen: MapScreen,
       navigationOptions: () => ({
         title: 'Map',
+        drawerIcon: () => (
+          <Image source={require('../assets/map.png')} style={[styles.icon]} />
+        ),
       }),
     },
   },
   {
     initialRootName: 'Home',
+    order: ['Home', 'Profile', 'Plan', 'Itinerary', 'Map'],
     contentOptions: {
-      itemStyle: { flexDirection: 'row-reverse' },
+      activeBackgroundColor: 'purple',
+      activeTintColor: 'white',
+      itemsContainerStyle: {
+        marginVertical: 30,
+      },
     },
     drawerPosition: 'right',
-    drawerWidth: 200,
+    drawerWidth: 175,
+    drawerType: 'slide',
   },
 );
+
+const styles = StyleSheet.create({
+  icon: {
+    width: 24,
+    height: 24,
+  },
+});
 
 export default createAppContainer(RootStack);
