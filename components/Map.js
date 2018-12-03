@@ -1,18 +1,17 @@
-import React from "react";
-import { MapView } from "expo";
+import React from 'react';
+import { MapView } from 'expo';
 import {
   Platform,
   Button,
   View,
   ActivityIndicator,
   FlatList,
-  Text
-} from "react-native";
+  Text,
+} from 'react-native';
 
-import { Constants, Location, Permissions } from "expo";
-import MapPins from "./MapPins.js";
-import { getDirections } from "../api";
-
+import { Constants, Location, Permissions } from 'expo';
+import MapPins from './MapPins.js';
+import { getDirections } from '../api';
 
 export default class MapScreen extends React.Component {
   state = {
@@ -20,37 +19,32 @@ export default class MapScreen extends React.Component {
     longitude: null,
     error: null,
     coordsArray: [],
-    isLoading: true
+    isLoading: true,
   };
 
   componentDidMount() {
-
-    if (Platform.OS === "android" && !Constants.isDevice) {
+    if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
         error:
-          "Oops, this will not work on Sketch in an Android emulator. Try it on your device!"
+          'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
       });
     } else {
       this._getLocationAsync();
     }
   }
 
-  componentDidMount() {
-    setTimeout(() => this.setState({ flex: 1 }), 500);
-  }
-
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== "granted") {
+    if (status !== 'granted') {
       this.setState({
-        error: "Permission to access location was denied"
+        error: 'Permission to access location was denied',
       });
     } else {
       let location = await Location.getCurrentPositionAsync({});
       this.setState({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        isLoading: false
+        isLoading: false,
       });
     }
   };
@@ -59,11 +53,10 @@ export default class MapScreen extends React.Component {
     getDirections(start, end).then(coords => {
       console.log(JSON.stringify(coords));
       this.setState({
-        coordsArray: [...this.state.coordsArray, coords]
+        coordsArray: [...this.state.coordsArray, coords],
       });
     });
   };
-
 
   cameraViewHandler = () => {
     this.map.animateToViewingAngle(50, 2);
@@ -75,7 +68,7 @@ export default class MapScreen extends React.Component {
       latitude: this.state.latitude,
       longitude: this.state.longitude,
       latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421
+      longitudeDelta: 0.0421,
     };
 
     if (this.state.isLoading) {
@@ -89,7 +82,7 @@ export default class MapScreen extends React.Component {
     return (
       // <View style={{ paddingTop: 5 }}>
       <MapView
-        style={{ flex: this.state.flex }}
+        style={{ flex: 1 }}
         initialRegion={initialLocation}
         showsUserLocation
         followsUserLocation={true}

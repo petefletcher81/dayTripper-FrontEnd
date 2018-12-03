@@ -138,7 +138,7 @@ const RootStack = createDrawerNavigator(
   },
   {
     initialRootName: 'Home',
-    order: ['Home', 'Profile', 'Plan', 'Itinerary', 'Map'],
+    order: ['Home', 'Profile', 'Plan', 'Itinerary', 'Map', 'Login', 'SignUp'],
     contentOptions: {
       activeBackgroundColor: 'purple',
       activeTintColor: 'white',
