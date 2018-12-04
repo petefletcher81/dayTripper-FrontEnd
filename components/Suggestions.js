@@ -4,6 +4,7 @@ import { View, Text, Button } from "react-native";
 
 export default class SuggestionsScreen extends React.Component {
   render() {
+    console.log(this.props.navigation.state.params.randomAttractions);
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text>Suggestions Screen</Text>
@@ -12,6 +13,6 @@ export default class SuggestionsScreen extends React.Component {
         }} */}
         {/* /> */}
       </View>
-    );
+    )
   }
 }
