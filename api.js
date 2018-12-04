@@ -1,6 +1,6 @@
 import GOOGLEAPI from "./config.js";
 import Polyline from "@mapbox/polyline";
-
+import geolib from "geolib";
 
 const DB_URL = "https://xprfmsf0pb.execute-api.eu-west-1.amazonaws.com/dev";
 
@@ -47,6 +47,7 @@ export const getAttractions = (username, city) => {
 };
 
 export const deleteUser = username => {};
+
 export const getDirections = (startLoc, destinationLoc) => {
   const startPoint = `${startLoc.latitude},${startLoc.longitude}`;
   const endPoint = `${destinationLoc.latitude},${destinationLoc.longitude}`;
@@ -73,3 +74,13 @@ export const getDirections = (startLoc, destinationLoc) => {
       })
   );
 };
+
+// export const getDistanceFromDestination = (startLoc, destinationLoc) => {
+//   return geolib.getDistance(
+//     {
+//       latitude: startLoc.latitude,
+//       longitude: startLoc.longitude
+//     },
+//     { latitude: destinationLoc.latitude, longitude: destinationLoc.longitude }
+//   );
+// };

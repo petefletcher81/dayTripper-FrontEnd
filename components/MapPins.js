@@ -8,11 +8,20 @@ import {
   Image,
   Button
 } from "react-native";
-// import Callout from "react-native-maps";
-import * as api from "../api";
 
 const MapPins = props => {
   return props.attractions.map(attraction => {
+    let color = "#ff0000";
+
+    if (
+      props.checkedInLocations.some(
+        place =>
+          place.latitude === attraction.coordinates.latitude &&
+          place.longitude === attraction.coordinates.longitude
+      )
+    ) {
+      color = "#00ff00";
+    }
     return (
       <MapView.Marker
         key={attraction.name}
@@ -20,6 +29,7 @@ const MapPins = props => {
           latitude: attraction.coordinates.latitude,
           longitude: attraction.coordinates.longitude
         }}
+        pinColor={color}
       >
         <MapView.Callout
           style={Styles.callout}
