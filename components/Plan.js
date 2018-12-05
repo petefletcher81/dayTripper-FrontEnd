@@ -1,7 +1,10 @@
 import React from "react";
-import { View, Text, Button, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, Image } from "react-native";
 import DateTimePickerTester from "./DatePicker";
 import * as api from "../api";
+import { Button, FormInput, FormLabel } from "react-native-elements";
+import BgImg from "../assets/bgImgDT.png";
+import Nav from "./Nav";
 
 export default class PlanScreen extends React.Component {
   state = {
@@ -11,30 +14,50 @@ export default class PlanScreen extends React.Component {
   };
   render() {
     return (
-      <View style={styles.view}>
-        <Text>Welcome User!</Text>
-        <TextInput
-          value={this.state.location}
-          style={styles.textInput}
-          placeholder="Location city"
-          onChangeText={location => this.setState({ location })}
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Image source={BgImg} style={styles.backgroundImage} />
+        <Nav
+          openDrawer={this.props.navigation.openDrawer}
+          style={{ position: "absolute" }}
         />
-        <DateTimePickerTester />
-        <Text>{this.props.date}</Text>
-        <Button
-          title="Map my day!"
-          onPress={() => {
-            api
-              .getAttractions(this.state.username, this.state.location)
-              .then(attractions => this.setState({ attractions: attractions }))
-              .then(res => {
-                this.props.navigation.navigate("Itinerary", {
-                  location: `${this.state.location}`,
-                  attractions: this.state.attractions
+        <View style={{ width: "70%", justifyContent: "center" }}>
+          <FormLabel>Your Location</FormLabel>
+          <FormInput
+            placeholder="Location city"
+            onChangeText={location => this.setState({ location })}
+            value={this.state.location}
+          />
+          <Button
+            buttonStyle={{
+              backgroundColor: "red",
+              borderRadius: 5,
+              marginBottom: 30,
+              marginTop: 20,
+              borderWidth: 1,
+              width: "89%",
+              marginLeft: 29
+            }}
+            title="Map my day!"
+            onPress={() => {
+              api
+                .getAttractions(this.state.username, this.state.location)
+                .then(attractions =>
+                  this.setState({ attractions: attractions })
+                )
+                .then(res => {
+                  this.props.navigation.navigate("Itinerary", {
+                    location: `${this.state.location}`,
+                    attractions: this.state.attractions
+                  });
                 });
-              });
-          }}
+            }}
+          />
+        </View>
+        {/* 
+        <DateTimePickerTester
+          style={{ justifyContent: "center", alignItems: "center" }}
         />
+         */}
       </View>
     );
   }
@@ -42,16 +65,16 @@ export default class PlanScreen extends React.Component {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
+    flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-evenly"
-  },
-  textInput: {
-    backgroundColor: "#87cefa",
-    color: "black",
-    width: "50%",
-    height: 40
+    justifyContent: "center"
   },
   date: {
     color: "blue"
+  },
+  backgroundImage: {
+    flex: 1,
+    position: "absolute",
+    resizeMode: "cover"
   }
 });

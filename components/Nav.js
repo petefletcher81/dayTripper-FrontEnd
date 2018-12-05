@@ -12,7 +12,7 @@ export default class Nav extends React.Component {
           centerComponent={{ text: 'Day Tripper', style: { color: '#fff' } }}
           rightComponent={{ icon: 'menu', color: '#fff' }}
           outerContainerStyles={{
-            backgroundColor: 'purple',
+            backgroundColor: 'red',
             position: 'absolute',
             top: 0,
             left: 0,
@@ -24,7 +24,7 @@ export default class Nav extends React.Component {
           onPress={() => this.props.openDrawer()}
           raised
           containerStyle={{
-            backgroundColor: 'purple',
+            backgroundColor: 'red',
             position: 'absolute',
             top: 5,
             right: 5,

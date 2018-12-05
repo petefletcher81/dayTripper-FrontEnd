@@ -1,14 +1,10 @@
 import React from "react";
-import { View, Text, Button, Picker } from "react-native";
+import { View, Text, Picker, StyleSheet, Image } from "react-native";
 // import DashBoard from './DashBoard'
-import {
-  FormLabel,
-  FormInput,
-  FormValidationMessage,
-  CheckBox
-} from "react-native-elements";
+import { CheckBox, Button } from "react-native-elements";
 import * as api from "../api";
 import Nav from "./Nav";
+import BgImg from "../assets/bgImgDT.png";
 
 export default class ProfileScreen extends React.Component {
   state = {
@@ -37,7 +33,11 @@ export default class ProfileScreen extends React.Component {
     const preferences = this.state.preferences;
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Nav openDrawer={this.props.navigation.openDrawer} />
+        <Image source={BgImg} style={styles.backgroundImage} />
+        <Nav
+          openDrawer={this.props.navigation.openDrawer}
+          style={{ position: "absolute" }}
+        />
         <CheckBox
           title="shopping"
           checked={shopping}
@@ -83,7 +83,19 @@ export default class ProfileScreen extends React.Component {
             })
           }
         />
-        <Button center title="Save Preferences" onPress={this.handleSubmit} />
+        <Button
+          buttonStyle={{
+            backgroundColor: "red",
+            borderRadius: 5,
+            marginBottom: 30,
+            marginTop: 20,
+            borderWidth: 1,
+            width: "89%",
+            marginLeft: 29
+          }}
+          title="Save Preferences"
+          onPress={this.handleSubmit}
+        />
       </View>
     );
   }
@@ -94,3 +106,11 @@ export default class ProfileScreen extends React.Component {
     this.setState({ preferences: userPreferences });
   };
 }
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    position: "absolute",
+    resizeMode: "cover"
+  }
+});

@@ -4,11 +4,11 @@ import React from "react";
 import {
   View,
   Text,
-  Button,
   Image,
   StyleSheet,
   TouchableOpacity
 } from "react-native";
+import { Button } from 'react-native-elements';
 import {
   createDrawerNavigator,
   createStackNavigator,
@@ -26,8 +26,7 @@ import HistoryScreen from "./History";
 import SuggestionsScreen from "./Suggestions";
 import ItineraryScreen from "./Itinerary";
 import MapScreen from "./Map.js";
-import Nav from "./Nav.js";
-import BgImg from "../assets/bgImage.png";
+import BgImg from "../assets/bgImgDT.png";
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -35,26 +34,23 @@ class HomeScreen extends React.Component {
   };
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View elevation={5} style={styles.container}>
         <Image source={BgImg} style={styles.backgroundImage} />
 
-        <TouchableOpacity
-          title="Login"
-          onPress={() => {
-            this.props.navigation.navigate("Login");
-          }}
-        >
-          <View style={styles.button}>
-            <Text>Login</Text>
-          </View>
-        </TouchableOpacity>
         <Button
-          style={styles.button}
-          title="Sign up"
-          onPress={() => {
-            this.props.navigation.navigate("SignUp");
-          }}
-        />
+            buttonStyle={{ backgroundColor: "red", borderRadius: 3, marginBottom: 30, borderColor: "black", borderWidth: 1, width: "90%", marginLeft: 29 }}
+            title="Login"
+            onPress={() =>
+              this.props.navigation.navigate("Login")
+            }
+          />
+        <Button
+            buttonStyle={{ backgroundColor: "red", borderRadius: 5, marginBottom: 30, borderWidth: 1, width: "89%", marginLeft: 29 }}
+            title="Sign Up"
+            onPress={() =>
+              this.props.navigation.navigate("SignUp")
+            }
+          />
       </View>
     );
   }
@@ -163,7 +159,7 @@ const RootStack = createDrawerNavigator(
       "SignUp"
     ],
     contentOptions: {
-      activeBackgroundColor: "purple",
+      activeBackgroundColor: "red",
       activeTintColor: "white",
       itemsContainerStyle: {
         marginVertical: 30
@@ -185,18 +181,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     resizeMode: "cover"
   },
-  button: {
-    justifyContent: "space-between",
-    width: 400,
-    position: "relative",
-    alignItems: "center",
-    padding: 10,
-    backgroundColor: "#a64dff",
-    borderRadius: 5,
-    borderColor: "black",
-    borderWidth: 1,
-    fontSize: 18
-  }
+  container:{
+    padding:20,
+    flex: 1,
+     alignItems: "center", 
+     justifyContent: "center"
+   },
 });
 
 export default createAppContainer(RootStack);

@@ -1,24 +1,19 @@
 import React from "react";
 import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
 import _ from "lodash";
-import {
-  Card,
-  List,
-  Button,
-  ListItem,
-  Tile,
-  Avatar
-} from "react-native-elements";
+import { Button, Tile, Overlay } from "react-native-elements";
+import BgImg from "../assets/bgImgDT.png";
+import Nav from "./Nav";
 
 export default class ItineraryScreen extends React.Component {
   state = {
     attractions: [],
     randomAttractions: [],
-    toggleIntro: false
+    isVisible: false,
+    contentSize: { width: 0, height: 0 }
   };
 
   randomAttractionsHandler = () => {
-    console.log("log 2");
     const locationsArray = this.props.navigation.state.params.attractions;
     const randomAttractions = _.shuffle(locationsArray).slice(0, 5);
     this.setState({
@@ -28,39 +23,59 @@ export default class ItineraryScreen extends React.Component {
   };
 
   handleIntroToggle = () => {
-    console.log("pressed");
-    const doesShow = this.state.toggleIntro;
-    this.setState({ toggleIntro: !doesShow });
-  };
-
-  keepDestinationHandler = () => {
-    console.log();
+    const doesShow = this.state.isVisible;
+    this.setState({ isVisible: !doesShow });
   };
 
   render() {
+    const backgroundImage = {
+      flex: 1,
+      position: "absolute",
+      resizeMode: "repeat",
+      width: this.state.contentSize.width,
+      height: this.state.contentSize.height
+    };
     return (
-      <ScrollView style={{ height: "80%" }}>
+      <ScrollView
+        style={{ height: "80%" }}
+        onContentSizeChange={(width, height) =>
+          this.setState({ contentSize: { width, height } })
+        }
+      >
+        <Image source={BgImg} style={backgroundImage} resizeMode="repeat" />
+        <Nav
+          openDrawer={this.props.navigation.openDrawer}
+          style={{ position: "absolute" }}
+        />
         {this.state.randomAttractions.map((attraction, index) => {
           return (
-            <Tile
-              style={{ alignItems: "center", justifyContent: "center" }}
-              imageSrc={{ uri: attraction.images[0].image }}
-              onPress={this.keepDestinationHandler}
-              title={attraction.name}
-            >
-              <View
-                key={index}
-                style={{
-                  flex: 1,
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignItems: "center"
-                }}
+            <View style={{ width: 70 }}>
+              <Tile
+                style={{ alignContent: "center", justifyContent: "center" }}
+                imageSrc={{ uri: attraction.images[0].image }}
+                onPress={this.keepDestinationHandler}
+                title={attraction.name}
               >
-                <Text>hello</Text>
-              </View>
+                <Button
+                  buttonStyle={{
+                    backgroundColor: "red",
+                    borderRadius: 5,
+                    marginBottom: 30,
+                    marginTop: 20,
+                    borderWidth: 1,
+                    width: "89%",
+                    marginLeft: 29
+                  }}
+                  title="Read More"
+                  onPress={this.handleIntroToggle}
+                />
+                {/* {this.state.isVisible ? (
+                  <Overlay>
+                    <Text>{attraction.intro}</Text>
+                  </Overlay>
+                ) : null} */}
 
-              {/* <Button title="Read More" onPress={this.handleIntroToggle}>
+                {/* <Button title="Read More" onPress={this.handleIntroToggle}>
                     Read More
                   </Button>
                   {this.state.toggleIntro ? (
@@ -68,24 +83,41 @@ export default class ItineraryScreen extends React.Component {
                       <Text>{attraction.intro}</Text>
                     </View>
                   ) : null} */}
-            </Tile>
+              </Tile>
+            </View>
           );
         })}
         <View
           style={{
-            flexDirection: "row",
-            justifyContent: "space-evenly",
+            flexDirection: "column",
+            justifyContent: "center",
             padding: 10,
             borderRadius: 10
           }}
         >
           <Button
-            buttonStyle={{ backgroundColor: "red", borderRadius: 10 }}
+            buttonStyle={{
+              backgroundColor: "red",
+              borderRadius: 5,
+              marginBottom: 30,
+              marginTop: 20,
+              borderWidth: 1,
+              width: "89%",
+              marginLeft: 29
+            }}
             title="Randomize"
             onPress={this.randomAttractionsHandler}
           />
           <Button
-            buttonStyle={{ backgroundColor: "red", borderRadius: 10 }}
+            buttonStyle={{
+              backgroundColor: "red",
+              borderRadius: 5,
+              marginBottom: 30,
+              marginTop: 20,
+              borderWidth: 1,
+              width: "89%",
+              marginLeft: 29
+            }}
             title="Save Map"
             onPress={() =>
               this.props.navigation.navigate("Suggestions", {
@@ -94,7 +126,15 @@ export default class ItineraryScreen extends React.Component {
             }
           />
           <Button
-            buttonStyle={{ backgroundColor: "red", borderRadius: 10 }}
+            buttonStyle={{
+              backgroundColor: "red",
+              borderRadius: 5,
+              marginBottom: 30,
+              marginTop: 20,
+              borderWidth: 1,
+              width: "89%",
+              marginLeft: 29
+            }}
             title="Map locations"
             onPress={() =>
               this.props.navigation.navigate("Map", {
@@ -111,10 +151,8 @@ export default class ItineraryScreen extends React.Component {
     this.randomAttractionsHandler();
   };
 }
-
-// const Styles = StyleSheet.Create({
-//   image: {
-//     height: 100,
-//     width: 100
-//   }
-// });
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1
+  }
+});
