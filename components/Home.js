@@ -11,7 +11,7 @@ import DashBoardScreen from "./DashBoard";
 import PlanScreen from "./Plan";
 import PreferencesScreen from "./Preferences";
 import HistoryScreen from "./History";
-import SuggestionsScreen from "./Suggestions";
+import SavedMapsScreen from "./SavedMaps";
 import ItineraryScreen from "./Itinerary";
 import MapScreen from "./Map.js";
 import BgImg from "../assets/bgImgDT.png";
@@ -124,10 +124,10 @@ const RootStack = createDrawerNavigator(
         title: "History"
       })
     },
-    Suggestions: {
-      screen: SuggestionsScreen,
+    SavedMaps: {
+      screen: SavedMapsScreen,
       navigationOptions: () => ({
-        title: "Suggestions"
+        title: "SavedMaps"
       })
     },
     Itinerary: {
@@ -160,7 +160,7 @@ const RootStack = createDrawerNavigator(
       "Plan",
       "Itinerary",
       "Map",
-      "Suggestions",
+      "SavedMaps",
       "Preferences",
       "Login",
       "SignUp"
