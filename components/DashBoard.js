@@ -24,6 +24,12 @@ export default class DashBoardScreen extends React.Component {
           }}
         />
         <Button
+          title="preferences"
+          onPress={() => {
+            this.props.navigation.navigate("preferences");
+          }}
+        />
+        <Button
           title="history"
           onPress={() => {
             this.props.navigation.navigate("History");
