@@ -1,14 +1,8 @@
 // In App.js in a new project
 
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity
-} from "react-native";
-import { Button } from 'react-native-elements';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Button, Card } from "react-native-elements";
 import {
   createDrawerNavigator,
   createStackNavigator,
@@ -18,10 +12,10 @@ import {
 } from "react-navigation";
 import LoginScreen from "./Login";
 import SignUpScreen from "./SignUp";
-import JourneyPlannerScreen from "./JourneyPlanner.js";
+import ProfileScreen from "./Profile.js";
 import DashBoardScreen from "./DashBoard";
 import PlanScreen from "./Plan";
-import ProfileScreen from "./Profile";
+import PreferencesScreen from "./Preferences";
 import HistoryScreen from "./History";
 import SuggestionsScreen from "./Suggestions";
 import ItineraryScreen from "./Itinerary";
@@ -38,19 +32,35 @@ class HomeScreen extends React.Component {
         <Image source={BgImg} style={styles.backgroundImage} />
 
         <Button
-            buttonStyle={{ backgroundColor: "red", borderRadius: 3, marginBottom: 30, borderColor: "black", borderWidth: 1, width: "90%", marginLeft: 29 }}
-            title="Login"
-            onPress={() =>
-              this.props.navigation.navigate("Login")
-            }
-          />
+          buttonStyle={{
+            backgroundColor: "red",
+            marginVertical: 8,
+            borderRadius: 10,
+
+            // marginBottom: 30,
+            borderColor: "black",
+            borderWidth: 1,
+            width: 200
+            // width: "90%"
+            // marginLeft: 29
+          }}
+          title="Login"
+          onPress={() => this.props.navigation.navigate("Login")}
+        />
         <Button
-            buttonStyle={{ backgroundColor: "red", borderRadius: 5, marginBottom: 30, borderWidth: 1, width: "89%", marginLeft: 29 }}
-            title="Sign Up"
-            onPress={() =>
-              this.props.navigation.navigate("SignUp")
-            }
-          />
+          buttonStyle={{
+            backgroundColor: "red",
+            borderRadius: 10,
+            borderColor: "black",
+            marginVertical: 8,
+            // marginBottom: 30,
+            borderWidth: 1,
+            width: 200
+            // marginLeft: 29
+          }}
+          title="Sign Up"
+          onPress={() => this.props.navigation.navigate("SignUp")}
+        />
       </View>
     );
   }
@@ -79,10 +89,16 @@ const RootStack = createDrawerNavigator(
         title: "SignUp"
       })
     },
-    JourneyPlanner: {
-      screen: JourneyPlannerScreen,
+    Profile: {
+      screen: ProfileScreen,
       navigationOptions: () => ({
-        title: "Journey Planner"
+        title: "Profile",
+        drawerIcon: () => (
+          <Image
+            source={require("../assets/profile.png")}
+            style={[styles.icon]}
+          />
+        )
       })
     },
     DashBoard: {
@@ -100,16 +116,16 @@ const RootStack = createDrawerNavigator(
         )
       })
     },
-    Profile: {
-      screen: ProfileScreen,
+    Preferences: {
+      screen: PreferencesScreen,
       navigationOptions: () => ({
-        title: "Profile",
-        drawerIcon: () => (
-          <Image
-            source={require("../assets/profile.png")}
-            style={[styles.icon]}
-          />
-        )
+        title: "Preferences"
+        // drawerIcon: () => (
+        //   <Image
+        //     source={require("../assets/profile.png")}
+        //     style={[styles.icon]}
+        //   />
+        //)
       })
     },
     History: {
@@ -155,6 +171,7 @@ const RootStack = createDrawerNavigator(
       "Itinerary",
       "Map",
       "Suggestions",
+      "Preferences",
       "Login",
       "SignUp"
     ],
@@ -181,12 +198,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     resizeMode: "cover"
   },
-  container:{
-    padding:20,
+  container: {
+    padding: 20,
     flex: 1,
-     alignItems: "center", 
-     justifyContent: "center"
-   },
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
 
 export default createAppContainer(RootStack);
