@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, Picker, StyleSheet, Image } from "react-native";
+import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
 // import DashBoard from './DashBoard'
-import { CheckBox, Button } from "react-native-elements";
+import { CheckBox, Button, Card } from "react-native-elements";
 import * as api from "../api";
 import Nav from "./Nav";
 import BgImg from "../assets/bgImgDT.png";
+import User from "../assets/william.png";
 
 export default class PreferencesScreen extends React.Component {
   state = {
@@ -33,6 +34,7 @@ export default class PreferencesScreen extends React.Component {
     } = this.state.preferences;
 
     const preferences = this.state.preferences;
+    const username = this.props.navigation.state.params.userDetails.username;
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Image source={BgImg} style={styles.backgroundImage} />
@@ -40,64 +42,84 @@ export default class PreferencesScreen extends React.Component {
           openDrawer={this.props.navigation.openDrawer}
           style={{ position: "absolute" }}
         />
-        <CheckBox
-          title="shopping"
-          checked={shopping}
-          onPress={() =>
-            this.setState({
-              preferences: { ...preferences, shopping: !shopping }
-            })
-          }
-        />
-        <CheckBox
-          title="eating out"
-          checked={eatingout}
-          onPress={() =>
-            this.setState({
-              preferences: { ...preferences, eatingout: !eatingout }
-            })
-          }
-        />
-        <CheckBox
-          title="music and shows"
-          checked={musicandshows}
-          onPress={() =>
-            this.setState({
-              preferences: { ...preferences, musicandshows: !musicandshows }
-            })
-          }
-        />
-        <CheckBox
-          title="Nature"
-          checked={exploringnature}
-          onPress={() =>
-            this.setState({
-              preferences: { ...preferences, exploringnature: !exploringnature }
-            })
-          }
-        />
-        <CheckBox
-          title="Cruises"
-          checked={cruises}
-          onPress={() =>
-            this.setState({
-              preferences: { ...preferences, cruises: !cruises }
-            })
-          }
-        />
-        <Button
-          buttonStyle={{
-            backgroundColor: "red",
-            borderRadius: 5,
-            marginBottom: 30,
-            marginTop: 20,
-            borderWidth: 1,
-            width: "89%",
-            marginLeft: 29
-          }}
-          title="Save Preferences"
-          onPress={this.handleSubmit}
-        />
+        <ScrollView style={{ marginTop: 100 }}>
+          <View>
+            <Card
+              containerStyle={{ justifyContent: "center" }}
+              title={username}
+            >
+              <View>
+                <Image
+                  style={{ marginLeft: "25%", height: 100, width: 100 }}
+                  source={User}
+                />
+                <Text></Text>
+              </View>
+            </Card>
+
+            <CheckBox
+              title="shopping"
+              checked={shopping}
+              onPress={() =>
+                this.setState({
+                  preferences: { ...preferences, shopping: !shopping }
+                })
+              }
+            />
+            <CheckBox
+              title="eating out"
+              checked={eatingout}
+              onPress={() =>
+                this.setState({
+                  preferences: { ...preferences, eatingout: !eatingout }
+                })
+              }
+            />
+            <CheckBox
+              title="music and shows"
+              checked={musicandshows}
+              onPress={() =>
+                this.setState({
+                  preferences: { ...preferences, musicandshows: !musicandshows }
+                })
+              }
+            />
+            <CheckBox
+              title="Nature"
+              checked={exploringnature}
+              onPress={() =>
+                this.setState({
+                  preferences: {
+                    ...preferences,
+                    exploringnature: !exploringnature
+                  }
+                })
+              }
+            />
+            <CheckBox
+              title="Cruises"
+              checked={cruises}
+              onPress={() =>
+                this.setState({
+                  preferences: { ...preferences, cruises: !cruises }
+                })
+              }
+            />
+            <Button
+              buttonStyle={{
+                backgroundColor: "red",
+                borderRadius: 5,
+                marginBottom: 30,
+                marginTop: 20,
+                borderWidth: 1,
+                width: "89%",
+                marginLeft: 29
+              }}
+              title="Save Preferences"
+              onPress={this.handleSubmit}
+            />
+          </View>
+        </ScrollView>
       </View>
     );
   }

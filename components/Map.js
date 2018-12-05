@@ -8,6 +8,7 @@ import {
   Text
 } from "react-native";
 import { Button, Badge } from "react-native-elements";
+import Nav from "./Nav";
 
 import { Constants, Location, Permissions } from "expo";
 import MapPins from "./MapPins.js";
