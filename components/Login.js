@@ -6,7 +6,7 @@ import BgImg from "../assets/bgImgDT.png";
 
 export default class LoginScreen extends React.Component {
   state = {
-    username: "",
+    username: "williamwalkers",
     password: ""
   };
   render() {
@@ -41,12 +41,12 @@ export default class LoginScreen extends React.Component {
           raised
           name="key"
           type="font-awesome"
-          color="#f50"
+          color="red"
           onPress={() => {
             api.getUserProfile(this.state.username).then(res =>
               Object.keys(res).length === 0
                 ? this.setState({ username: "", password: "" })
-                : this.props.navigation.navigate("DashBoard", {
+                : this.props.navigation.navigate("Preferences", {
                     userDetails: res
                   })
             );
@@ -56,10 +56,7 @@ export default class LoginScreen extends React.Component {
           buttonStyle={{
             backgroundColor: "red",
             borderRadius: 5,
-            // marginBottom: 30,
             borderWidth: 1
-            // width: "89%",
-            // marginLeft: 29
           }}
           title="don't have an account? sign up"
           onPress={() => {

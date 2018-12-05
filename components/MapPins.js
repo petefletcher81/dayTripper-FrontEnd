@@ -48,12 +48,12 @@ const MapPins = props => {
         >
           <View>
             <ScrollView>
-              <Text style={Styles.calloutHeader}>{attraction.name}</Text>
               <Image
                 style={Styles.placeImage}
                 source={{ uri: attraction.images[0].image }}
               />
-              <Button title={"Take me there!"} />
+              <Button title={attraction.name} onPress={() => console.log()} />
+              {/* <Text style={Styles.calloutHeader}></Text> */}
               <Text>{attraction.intro}</Text>
             </ScrollView>
           </View>
