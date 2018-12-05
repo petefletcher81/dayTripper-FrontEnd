@@ -48,7 +48,7 @@ export const updateUserInfo = (username, info) => {
     },
     body: JSON.stringify({ username: username, info: info })
   })
-    .then(data => console.log(data) || data.json())
+    .then(data => data.json())
     .then(data => JSON.parse(data))
     .catch(error => console.log(error));
 };

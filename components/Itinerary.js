@@ -45,6 +45,7 @@ export default class ItineraryScreen extends React.Component {
         <Image source={BgImg} style={backgroundImage} resizeMode="repeat" />
 
         {this.state.randomAttractions.map((attraction, index) => {
+          console.log(attraction, "+++++");
           return (
             <View style={{ width: 70 }}>
               <Tile

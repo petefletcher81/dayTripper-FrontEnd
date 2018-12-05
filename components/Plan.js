@@ -20,6 +20,7 @@ export default class PlanScreen extends React.Component {
     attractions: []
   };
   render() {
+    console.log("!!!!", this.props, "!!!!");
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Image source={BgImg} style={styles.backgroundImage} />
@@ -50,9 +51,7 @@ export default class PlanScreen extends React.Component {
             onPress={() => {
               api
                 .getAttractions(this.state.username, this.state.location)
-                .then(attractions =>
-                  this.setState({ attractions: attractions })
-                )
+                .then(attractions => this.setState({ attractions }))
                 .then(res => {
                   this.props.navigation.navigate("Itinerary", {
                     location: `${this.state.location}`,

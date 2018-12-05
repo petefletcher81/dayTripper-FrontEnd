@@ -73,11 +73,12 @@ export default class ProfileScreen extends React.Component {
             onPress={() => {
               api
                 .updateUserInfo(username, this.state)
-                // .then(user => {
-                //   this.props.navigation.navigate("Preferences", {
-                //     userDetails: user
-                //   });
-                // })
+                .then(user => {
+                  console.log(user);
+                  this.props.navigation.navigate("Preferences", {
+                    userDetails: user.Attributes
+                  });
+                })
                 .catch(err => {
                   console.log(err);
                 });
