@@ -43,10 +43,7 @@ export default class ItineraryScreen extends React.Component {
         }
       >
         <Image source={BgImg} style={backgroundImage} resizeMode="repeat" />
-        <Nav
-          openDrawer={this.props.navigation.openDrawer}
-          style={{ position: "absolute" }}
-        />
+
         {this.state.randomAttractions.map((attraction, index) => {
           return (
             <View style={{ width: 70 }}>
@@ -56,7 +53,7 @@ export default class ItineraryScreen extends React.Component {
                 onPress={this.keepDestinationHandler}
                 title={attraction.name}
               >
-                <Button
+                {/* <Button
                   buttonStyle={{
                     backgroundColor: "red",
                     borderRadius: 5,
@@ -68,7 +65,7 @@ export default class ItineraryScreen extends React.Component {
                   }}
                   title="Read More"
                   onPress={this.handleIntroToggle}
-                />
+                /> */}
                 {/* {this.state.isVisible ? (
                   <Overlay>
                     <Text>{attraction.intro}</Text>
@@ -99,11 +96,11 @@ export default class ItineraryScreen extends React.Component {
             buttonStyle={{
               backgroundColor: "red",
               borderRadius: 5,
-              marginBottom: 30,
-              marginTop: 20,
+              marginBottom: 10,
+              marginTop: 10,
               borderWidth: 1,
               width: "89%",
-              marginLeft: 29
+              marginLeft: "6%"
             }}
             title="Randomize"
             onPress={this.randomAttractionsHandler}
@@ -112,11 +109,11 @@ export default class ItineraryScreen extends React.Component {
             buttonStyle={{
               backgroundColor: "red",
               borderRadius: 5,
-              marginBottom: 30,
-              marginTop: 20,
+              marginBottom: 10,
+              marginTop: 10,
               borderWidth: 1,
               width: "89%",
-              marginLeft: 29
+              marginLeft: "6%"
             }}
             title="Save Map"
             onPress={() =>
@@ -129,11 +126,11 @@ export default class ItineraryScreen extends React.Component {
             buttonStyle={{
               backgroundColor: "red",
               borderRadius: 5,
-              marginBottom: 30,
-              marginTop: 20,
+              marginBottom: 10,
+              marginTop: 10,
               borderWidth: 1,
               width: "89%",
-              marginLeft: 29
+              marginLeft: "6%"
             }}
             title="Map locations"
             onPress={() =>

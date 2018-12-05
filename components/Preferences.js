@@ -17,7 +17,7 @@ export default class PreferencesScreen extends React.Component {
     api
       .updateUserPreferences(username, this.state.preferences)
       .then(user => {
-        this.props.navigation.navigate("Profile");
+        this.props.navigation.navigate("Preferences");
       })
       .catch(err => console.log(err));
   };
@@ -50,10 +50,15 @@ export default class PreferencesScreen extends React.Component {
             >
               <View>
                 <Image
-                  style={{ marginLeft: "25%", height: 100, width: 100 }}
+                  style={{
+                    marginLeft: "25%",
+                    height: 100,
+                    width: 100,
+                    marginBottom: 20
+                  }}
                   source={User}
                 />
-                <Text></Text>
+                <Text>Hey {username}, set some preferences!</Text>
               </View>
             </Card>
 
@@ -109,14 +114,29 @@ export default class PreferencesScreen extends React.Component {
               buttonStyle={{
                 backgroundColor: "red",
                 borderRadius: 5,
-                marginBottom: 30,
+                marginBottom: 10,
                 marginTop: 20,
                 borderWidth: 1,
                 width: "89%",
-                marginLeft: 29
+                marginLeft: "5%"
               }}
               title="Save Preferences"
               onPress={this.handleSubmit}
+            />
+            <Button
+              buttonStyle={{
+                backgroundColor: "red",
+                borderRadius: 5,
+                marginBottom: 30,
+                marginTop: 10,
+                borderWidth: 1,
+                width: "89%",
+                marginLeft: "5%"
+              }}
+              title="Plan a trip"
+              onPress={() => {
+                this.props.navigation.navigate("Plan");
+              }}
             />
           </View>
         </ScrollView>

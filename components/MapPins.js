@@ -53,7 +53,7 @@ const MapPins = props => {
                 style={Styles.placeImage}
                 source={{ uri: attraction.images[0].image }}
               />
-              <Button title={"take me there"} />
+              <Button title={"Take me there!"} />
               <Text>{attraction.intro}</Text>
             </ScrollView>
           </View>
@@ -65,12 +65,14 @@ const MapPins = props => {
 
 const Styles = StyleSheet.create({
   callout: {
-    width: 120,
+    width: 170,
     height: 200
   },
+
   placeImage: {
     width: 100,
-    height: 100
+    height: 100,
+    marginLeft: "20%"
   },
   calloutHeader: {
     fontSize: 16,

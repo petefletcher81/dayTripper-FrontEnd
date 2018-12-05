@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, TextInput, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Image,
+  ActivityIndicator
+} from "react-native";
 import DateTimePickerTester from "./DatePicker";
 import * as api from "../api";
 import { Button, FormInput, FormLabel } from "react-native-elements";
@@ -21,7 +28,9 @@ export default class PlanScreen extends React.Component {
           style={{ position: "absolute" }}
         />
         <View style={{ width: "70%", justifyContent: "center" }}>
-          <FormLabel>Your Location</FormLabel>
+          <Text style={{ fontSize: 15, marginLeft: "9%" }}>
+            Where are you heading to?
+          </Text>
           <FormInput
             placeholder="Location city"
             onChangeText={location => this.setState({ location })}
@@ -35,7 +44,7 @@ export default class PlanScreen extends React.Component {
               marginTop: 20,
               borderWidth: 1,
               width: "89%",
-              marginLeft: 29
+              marginLeft: "6%"
             }}
             title="Map my day!"
             onPress={() => {
