@@ -1,13 +1,6 @@
 import React from "react";
 import { View, Text, TextInput, StyleSheet, Image } from "react-native";
-import {
-  FormLabel,
-  FormInput,
-  FormValidationMessage,
-  Icon,
-  Button
-} from "react-native-elements";
-import DashBoard from "./DashBoard";
+import { FormLabel, FormInput, Icon, Button } from "react-native-elements";
 import * as api from "../api";
 import BgImg from "../assets/bgImgDT.png";
 

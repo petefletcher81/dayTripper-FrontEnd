@@ -2,12 +2,13 @@ import React from "react";
 import { MapView } from "expo";
 import {
   Platform,
-  Button,
   View,
   ActivityIndicator,
   FlatList,
   Text
 } from "react-native";
+import { Button, Badge } from "react-native-elements";
+import Nav from "./Nav";
 
 import { Constants, Location, Permissions } from "expo";
 import MapPins from "./MapPins.js";
@@ -26,7 +27,8 @@ export default class MapScreen extends React.Component {
     isCloseToDestination: false,
     isLoading: true,
     watchPositionSubscription: null,
-    checkedInLocations: []
+    checkedInLocations: [],
+    distance: 0
   };
 
   componentDidMount() {
@@ -101,6 +103,9 @@ export default class MapScreen extends React.Component {
         isCloseToDestination: true
       });
     }
+    this.setState({
+      distance: distanceBetweenLocations
+    });
   };
 
   cameraViewHandler = () => {
@@ -142,7 +147,7 @@ export default class MapScreen extends React.Component {
         showsCompass={true}
         onPress={this.cameraViewHandler}
         ref={ref => (this.map = ref)}
-        maxZoomLevel={20}
+        maxZoomLevel={30}
         showsMyLocationButton
       >
         <MapPins
@@ -161,8 +166,33 @@ export default class MapScreen extends React.Component {
             />
           );
         })}
+
+        <Text
+          style={{
+            marginTop: 500,
+            backgroundColor: "red",
+            color: "white",
+            textAlign: "center",
+            fontSize: 18
+          }}
+        >
+          You are {this.state.distance} from your destination
+        </Text>
+
         {this.state.isCloseToDestination && (
-          <Button title="Check In" onPress={this.checkIn} />
+          <Button
+            buttonStyle={{
+              backgroundColor: "red",
+              borderRadius: 5,
+              marginBottom: 30,
+              marginTop: 20,
+              borderWidth: 1,
+              width: "89%",
+              marginLeft: 29
+            }}
+            title="Check In"
+            onPress={this.checkIn}
+          />
         )}
       </MapView>
     );

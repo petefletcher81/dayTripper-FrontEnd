@@ -3,13 +3,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Button, Card } from "react-native-elements";
-import {
-  createDrawerNavigator,
-  createStackNavigator,
-  createAppContainer,
-  DrawerActions,
-  DrawerItems
-} from "react-navigation";
+import { createDrawerNavigator, createAppContainer } from "react-navigation";
 import LoginScreen from "./Login";
 import SignUpScreen from "./SignUp";
 import ProfileScreen from "./Profile.js";
@@ -17,7 +11,7 @@ import DashBoardScreen from "./DashBoard";
 import PlanScreen from "./Plan";
 import PreferencesScreen from "./Preferences";
 import HistoryScreen from "./History";
-import SuggestionsScreen from "./Suggestions";
+import SavedMapsScreen from "./SavedMaps";
 import ItineraryScreen from "./Itinerary";
 import MapScreen from "./Map.js";
 import BgImg from "../assets/bgImgDT.png";
@@ -36,13 +30,9 @@ class HomeScreen extends React.Component {
             backgroundColor: "red",
             marginVertical: 8,
             borderRadius: 10,
-
-            // marginBottom: 30,
             borderColor: "black",
             borderWidth: 1,
             width: 200
-            // width: "90%"
-            // marginLeft: 29
           }}
           title="Login"
           onPress={() => this.props.navigation.navigate("Login")}
@@ -134,10 +124,10 @@ const RootStack = createDrawerNavigator(
         title: "History"
       })
     },
-    Suggestions: {
-      screen: SuggestionsScreen,
+    SavedMaps: {
+      screen: SavedMapsScreen,
       navigationOptions: () => ({
-        title: "Suggestions"
+        title: "SavedMaps"
       })
     },
     Itinerary: {
@@ -170,7 +160,7 @@ const RootStack = createDrawerNavigator(
       "Plan",
       "Itinerary",
       "Map",
-      "Suggestions",
+      "SavedMaps",
       "Preferences",
       "Login",
       "SignUp"
