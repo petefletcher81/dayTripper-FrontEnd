@@ -43,10 +43,13 @@ export default class ItineraryScreen extends React.Component {
         }
       >
         <Image source={BgImg} style={backgroundImage} resizeMode="repeat" />
-
+        <Nav
+          openDrawer={this.props.navigation.openDrawer}
+          style={{ position: "absolute" }}
+        />
         {this.state.randomAttractions.map((attraction, index) => {
           return (
-            <View style={{ width: 70 }}>
+            <View key={index} style={{ width: 70 }}>
               <Tile
                 style={{ alignContent: "center", justifyContent: "center" }}
                 imageSrc={{ uri: attraction.images[0].image }}
@@ -100,7 +103,7 @@ export default class ItineraryScreen extends React.Component {
               marginTop: 10,
               borderWidth: 1,
               width: "89%",
-              marginLeft: "6%"
+              marginLeft: 29
             }}
             title="Randomize"
             onPress={this.randomAttractionsHandler}
@@ -113,11 +116,11 @@ export default class ItineraryScreen extends React.Component {
               marginTop: 10,
               borderWidth: 1,
               width: "89%",
-              marginLeft: "6%"
+              marginLeft: 29
             }}
             title="Save Map"
             onPress={() =>
-              this.props.navigation.navigate("Suggestions", {
+              this.props.navigation.navigate("SavedMaps", {
                 randomAttractions: this.state.randomAttractions
               })
             }
@@ -130,7 +133,7 @@ export default class ItineraryScreen extends React.Component {
               marginTop: 10,
               borderWidth: 1,
               width: "89%",
-              marginLeft: "6%"
+              marginLeft: 29
             }}
             title="Map locations"
             onPress={() =>

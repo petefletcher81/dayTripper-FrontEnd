@@ -15,6 +15,8 @@ import SavedMapsScreen from "./SavedMaps";
 import ItineraryScreen from "./Itinerary";
 import MapScreen from "./Map.js";
 import BgImg from "../assets/bgImgDT.png";
+import Floppy from "../assets/iconfinder_floppy.png";
+import Preferences from "../assets/preferences.png";
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -76,7 +78,7 @@ const RootStack = createDrawerNavigator(
     SignUp: {
       screen: SignUpScreen,
       navigationOptions: () => ({
-        title: "SignUp"
+        title: ""
       })
     },
     Profile: {
@@ -109,25 +111,15 @@ const RootStack = createDrawerNavigator(
     Preferences: {
       screen: PreferencesScreen,
       navigationOptions: () => ({
-        title: "Preferences"
-        // drawerIcon: () => (
-        //   <Image
-        //     source={require("../assets/profile.png")}
-        //     style={[styles.icon]}
-        //   />
-        //)
-      })
-    },
-    History: {
-      screen: HistoryScreen,
-      navigationOptions: () => ({
-        title: "History"
+        title: "Preferences",
+        drawerIcon: () => <Image source={Preferences} style={[styles.icon]} />
       })
     },
     SavedMaps: {
       screen: SavedMapsScreen,
       navigationOptions: () => ({
-        title: "SavedMaps"
+        title: "SavedMaps",
+        drawerIcon: () => <Image source={Floppy} style={[styles.icon]} />
       })
     },
     Itinerary: {
@@ -149,6 +141,12 @@ const RootStack = createDrawerNavigator(
         drawerIcon: () => (
           <Image source={require("../assets/map.png")} style={[styles.icon]} />
         )
+      })
+    },
+    Login: {
+      screen: LoginScreen,
+      navigationOptions: () => ({
+        title: ""
       })
     }
   },
