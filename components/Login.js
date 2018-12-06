@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, TextInput, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Image,
+  TouchableOpacity
+} from "react-native";
 import { FormLabel, FormInput, Icon, Button } from "react-native-elements";
 import * as api from "../api";
 import BgImg from "../assets/bgImgDT.png";
@@ -52,17 +59,26 @@ export default class LoginScreen extends React.Component {
             );
           }}
         />
-        <Button
-          buttonStyle={{
+        <TouchableOpacity
+          style={{
             backgroundColor: "red",
-            borderRadius: 5,
-            borderWidth: 1
+            borderRadius: 10,
+            borderColor: "black",
+            marginVertical: 8,
+            alignItems: "center",
+            borderWidth: 1,
+            width: 200,
+            paddingBottom: 10,
+            paddingTop: 10
+            // marginLeft: 29
           }}
-          title="don't have an account? sign up"
-          onPress={() => {
-            this.props.navigation.navigate("SignUp");
-          }}
-        />
+          title="Sign Up"
+          onPress={() => this.props.navigation.navigate("SignUp")}
+        >
+          <Text style={{ fontSize: 18, color: "white", alignItems: "center" }}>
+            Not got an account? Sign Up
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
