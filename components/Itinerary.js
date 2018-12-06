@@ -12,7 +12,6 @@ export default class ItineraryScreen extends React.Component {
     isVisible: false,
     contentSize: { width: 0, height: 0 }
   };
-
   randomAttractionsHandler = () => {
     const locationsArray = this.props.navigation.state.params.attractions;
     const randomAttractions = _.shuffle(locationsArray).slice(0, 5);
@@ -21,12 +20,16 @@ export default class ItineraryScreen extends React.Component {
       randomAttractions: randomAttractions
     });
   };
-
+  imageHandler = (images, defaultImage) => {
+    for (let i = 0; i < images.length; i++) {
+      if (/(wiki)|(bookatable)/.test(images[i].image)) return images[i].image;
+    };
+    return defaultImage;
+  };
   handleIntroToggle = () => {
     const doesShow = this.state.isVisible;
     this.setState({ isVisible: !doesShow });
   };
-
   render() {
     const backgroundImage = {
       flex: 1,
@@ -43,44 +46,19 @@ export default class ItineraryScreen extends React.Component {
         }
       >
         <Image source={BgImg} style={backgroundImage} resizeMode="repeat" />
-
+        <Nav
+          openDrawer={this.props.navigation.openDrawer}
+          style={{ position: "absolute" }}
+        />
         {this.state.randomAttractions.map((attraction, index) => {
-          console.log(attraction, "+++++");
           return (
-            <View style={{ width: 70 }}>
+            <View key={index} style={{ width: 70 }}>
               <Tile
                 style={{ alignContent: "center", justifyContent: "center" }}
-                imageSrc={{ uri: attraction.images[0].image }}
+                imageSrc={{ uri: this.imageHandler(attraction.images, 'https://itefix.net/sites/default/files/not_available.png')}}
                 onPress={this.keepDestinationHandler}
                 title={attraction.name}
               >
-                {/* <Button
-                  buttonStyle={{
-                    backgroundColor: "red",
-                    borderRadius: 5,
-                    marginBottom: 30,
-                    marginTop: 20,
-                    borderWidth: 1,
-                    width: "89%",
-                    marginLeft: 29
-                  }}
-                  title="Read More"
-                  onPress={this.handleIntroToggle}
-                /> */}
-                {/* {this.state.isVisible ? (
-                  <Overlay>
-                    <Text>{attraction.intro}</Text>
-                  </Overlay>
-                ) : null} */}
-
-                {/* <Button title="Read More" onPress={this.handleIntroToggle}>
-                    Read More
-                  </Button>
-                  {this.state.toggleIntro ? (
-                    <View>
-                      <Text>{attraction.intro}</Text>
-                    </View>
-                  ) : null} */}
               </Tile>
             </View>
           );
@@ -101,7 +79,7 @@ export default class ItineraryScreen extends React.Component {
               marginTop: 10,
               borderWidth: 1,
               width: "89%",
-              marginLeft: "6%"
+              marginLeft: 29
             }}
             title="Randomize"
             onPress={this.randomAttractionsHandler}
@@ -114,11 +92,11 @@ export default class ItineraryScreen extends React.Component {
               marginTop: 10,
               borderWidth: 1,
               width: "89%",
-              marginLeft: "6%"
+              marginLeft: 29
             }}
             title="Save Map"
             onPress={() =>
-              this.props.navigation.navigate("Suggestions", {
+              this.props.navigation.navigate("SavedMaps", {
                 randomAttractions: this.state.randomAttractions
               })
             }
@@ -131,7 +109,7 @@ export default class ItineraryScreen extends React.Component {
               marginTop: 10,
               borderWidth: 1,
               width: "89%",
-              marginLeft: "6%"
+              marginLeft: 29
             }}
             title="Map locations"
             onPress={() =>

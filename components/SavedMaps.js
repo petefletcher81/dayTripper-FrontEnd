@@ -1,6 +1,8 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StyleSheet, Image } from "react-native";
 import { Card } from "react-native-elements";
+import BgImg from "../assets/bgImgDT.png";
+import Nav from "./Nav";
 
 export default class SavedMapsScreen extends React.Component {
   state = {
@@ -22,8 +24,13 @@ export default class SavedMapsScreen extends React.Component {
     console.log(this.props.navigation.state.params.randomAttractions);
     return (
       <View style={{ flex: 1, alignItems: "center" }}>
+        <Image source={BgImg} style={styles.backgroundImage} />
+        <Nav
+          openDrawer={this.props.navigation.openDrawer}
+          style={{ position: "absolute" }}
+        />
         <Card
-          containerStyle={{ width: "90%" }}
+          containerStyle={{ width: "90%", marginTop: 100 }}
           title="Previous Trip"
           image={{
             uri:
@@ -32,7 +39,9 @@ export default class SavedMapsScreen extends React.Component {
         >
           {this.state.attractionHistory.map((attraction, index) => {
             return (
-              <Text style={{ alignContent: "center" }}>{attraction.name}</Text>
+              <Text key={index} style={{ alignContent: "center" }}>
+                {attraction.name}
+              </Text>
             );
           })}
           <Button
@@ -48,3 +57,11 @@ export default class SavedMapsScreen extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    position: "absolute",
+    resizeMode: "cover"
+  }
+});
