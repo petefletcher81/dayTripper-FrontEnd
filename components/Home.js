@@ -27,32 +27,42 @@ class HomeScreen extends React.Component {
       <View elevation={5} style={styles.container}>
         <Image source={BgImg} style={styles.backgroundImage} />
 
-        <Button
-          buttonStyle={{
+        <TouchableOpacity
+          style={{
             backgroundColor: "red",
-            marginVertical: 8,
             borderRadius: 10,
             borderColor: "black",
+            marginVertical: 8,
+            alignItems: "center",
             borderWidth: 1,
-            width: 200
+            width: 200,
+            paddingBottom: 10,
+            paddingTop: 10
           }}
           title="Login"
           onPress={() => this.props.navigation.navigate("Login")}
-        />
-        <Button
-          buttonStyle={{
+        >
+          <Text style={{ fontSize: 18, color: "white" }}>Login</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
             backgroundColor: "red",
             borderRadius: 10,
             borderColor: "black",
             marginVertical: 8,
-            // marginBottom: 30,
+            alignItems: "center",
             borderWidth: 1,
-            width: 200
+            width: 200,
+            paddingBottom: 10,
+            paddingTop: 10
             // marginLeft: 29
           }}
           title="Sign Up"
           onPress={() => this.props.navigation.navigate("SignUp")}
-        />
+        >
+          <Text style={{ fontSize: 18, color: "white" }}>Sign Up</Text>
+        </TouchableOpacity>
       </View>
     );
   }
