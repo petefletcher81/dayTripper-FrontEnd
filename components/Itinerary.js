@@ -12,7 +12,6 @@ export default class ItineraryScreen extends React.Component {
     isVisible: false,
     contentSize: { width: 0, height: 0 }
   };
-
   randomAttractionsHandler = () => {
     const locationsArray = this.props.navigation.state.params.attractions;
     const randomAttractions = _.shuffle(locationsArray).slice(0, 5);
@@ -21,12 +20,16 @@ export default class ItineraryScreen extends React.Component {
       randomAttractions: randomAttractions
     });
   };
-
+  imageHandler = (images, defaultImage) => {
+    for (let i = 0; i < images.length; i++) {
+      if (/(wiki)|(bookatable)/.test(images[i].image)) return images[i].image;
+    };
+    return defaultImage;
+  };
   handleIntroToggle = () => {
     const doesShow = this.state.isVisible;
     this.setState({ isVisible: !doesShow });
   };
-
   render() {
     const backgroundImage = {
       flex: 1,
@@ -48,11 +51,13 @@ export default class ItineraryScreen extends React.Component {
           style={{ position: "absolute" }}
         />
         {this.state.randomAttractions.map((attraction, index) => {
+          console.log('########')
+          attraction.images.forEach(image => console.log(image.image))
           return (
             <View key={index} style={{ width: 70 }}>
               <Tile
                 style={{ alignContent: "center", justifyContent: "center" }}
-                imageSrc={{ uri: attraction.images[0].image }}
+                imageSrc={{ uri: this.imageHandler(attraction.images, 'https://itefix.net/sites/default/files/not_available.png')}}
                 onPress={this.keepDestinationHandler}
                 title={attraction.name}
               >
