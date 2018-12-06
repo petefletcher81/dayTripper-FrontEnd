@@ -23,7 +23,6 @@ export default class PreferencesScreen extends React.Component {
   };
 
   render() {
-    console.log(this.state.preferences);
     const {
       cruises,
       eatingout,

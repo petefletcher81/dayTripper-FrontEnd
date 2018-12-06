@@ -51,8 +51,6 @@ export default class ItineraryScreen extends React.Component {
           style={{ position: "absolute" }}
         />
         {this.state.randomAttractions.map((attraction, index) => {
-          console.log('########')
-          attraction.images.forEach(image => console.log(image.image))
           return (
             <View key={index} style={{ width: 70 }}>
               <Tile
@@ -61,33 +59,6 @@ export default class ItineraryScreen extends React.Component {
                 onPress={this.keepDestinationHandler}
                 title={attraction.name}
               >
-                {/* <Button
-                  buttonStyle={{
-                    backgroundColor: "red",
-                    borderRadius: 5,
-                    marginBottom: 30,
-                    marginTop: 20,
-                    borderWidth: 1,
-                    width: "89%",
-                    marginLeft: 29
-                  }}
-                  title="Read More"
-                  onPress={this.handleIntroToggle}
-                /> */}
-                {/* {this.state.isVisible ? (
-                  <Overlay>
-                    <Text>{attraction.intro}</Text>
-                  </Overlay>
-                ) : null} */}
-
-                {/* <Button title="Read More" onPress={this.handleIntroToggle}>
-                    Read More
-                  </Button>
-                  {this.state.toggleIntro ? (
-                    <View>
-                      <Text>{attraction.intro}</Text>
-                    </View>
-                  ) : null} */}
               </Tile>
             </View>
           );

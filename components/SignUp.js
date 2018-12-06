@@ -20,6 +20,7 @@ export default class SignUpScreen extends React.Component {
         <Image source={BgImg} style={styles.backgroundImage} />
         <FormLabel>Username:</FormLabel>
         <FormInput
+          placeholder="choose a username"
           containerStyle={{
             width: 250
           }}
@@ -44,7 +45,7 @@ export default class SignUpScreen extends React.Component {
               .createUserProfile(this.state.username)
               .then(() => {
                 api.getUserProfile(this.state.username).then(user => {
-                  this.props.navigation.navigate("Preferences", {
+                  this.props.navigation.navigate("Profile", {
                     userDetails: user
                   });
                 });

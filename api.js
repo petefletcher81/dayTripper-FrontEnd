@@ -38,6 +38,20 @@ export const updateUserPreferences = (username, preferences) => {
     .then(data => JSON.parse(data))
     .catch(error => console.log(error));
 };
+export const updateUserInfo = (username, info) => {
+  // console.log(info, "<<<<<<");
+  return fetch(`${DB_URL}/updateUserProfile`, {
+    method: `PATCH`,
+    headers: {
+      Accept: `application/json`,
+      "Content-Type": `application/json`
+    },
+    body: JSON.stringify({ username: username, info: info })
+  })
+    .then(data => data.json())
+    .then(data => JSON.parse(data))
+    .catch(error => console.log(error));
+};
 
 export const getAttractions = (username, city) => {
   return fetch(`${DB_URL}/apiCall?username=${username}&city=${city}`)
